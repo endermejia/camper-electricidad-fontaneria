@@ -1357,6 +1357,12 @@ function initInteractions(initialScheme = 'electric') {
 
   switchScheme(activeScheme);
 
+  const drawerParam = new URLSearchParams(window.location.search).get('drawer');
+  if (drawerParam === 'bom' || drawerParam === 'circuits') {
+    renderDrawerTab(drawerParam);
+    drawer.classList.remove('collapsed');
+  }
+
   document.querySelectorAll('.tab-btn').forEach((btn) => {
     btn.addEventListener('click', () => renderDrawerTab(btn.getAttribute('data-tab')));
   });
