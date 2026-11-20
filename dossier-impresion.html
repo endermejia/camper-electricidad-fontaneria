@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dossier Esquema Eléctrico Camper 12V — LiFePO4 300Ah + Solar 450W</title>
+  <style>
+    @page {
+      size: A4 landscape;
+      margin: 8mm 10mm 10mm 10mm;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      color: #0f172a;
+      background: #ffffff;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      font-size: 10px;
+      line-height: 1.35;
+    }
+
+    .page-diagram {
+      page-break-after: always;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .doc-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 7px 14px;
+      border-radius: 8px;
+    }
+
+    .doc-header h1 {
+      font-size: 13.5px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+
+    .doc-header .meta {
+      font-size: 10px;
+      color: #cbd5e1;
+      text-align: right;
+    }
+
+    .svg-frame {
+      width: 100%;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #f8fafc;
+    }
+
+    #diagram-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .section {
+      margin-bottom: 12px;
+    }
+
+    .page-break {
+      page-break-before: always;
+    }
+
+    h2.sec-title {
+      font-size: 12px;
+      font-weight: 800;
+      color: #0f172a;
+      background: #e2e8f0;
+      border-left: 4px solid #0284c7;
+      padding: 5px 10px;
+      border-radius: 4px;
+      margin-bottom: 6px;
+      break-after: avoid;
+    }
+
+    h2.sec-title.red {
+      border-left-color: #dc2626;
+      background: #fef2f2;
+      color: #7f1d1d;
+    }
+
+    h2.sec-title.black {
+      border-left-color: #0f172a;
+      background: #f1f5f9;
+      color: #0f172a;
+    }
+
+    h2.sec-title.amber {
+      border-left-color: #d97706;
+      background: #fffbeb;
+      color: #78350f;
+    }
+
+    h2.sec-title.green {
+      border-left-color: #059669;
+      background: #ecfdf5;
+      color: #064e3b;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 8px;
+    }
+
+    thead {
+      display: table-header-group;
+    }
+
+    tr {
+      break-inside: avoid;
+    }
+
+    th, td {
+      border: 1px solid #cbd5e1;
+      padding: 3px 6px;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    th {
+      background: #1e293b;
+      color: #f8fafc;
+      font-size: 9.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    tbody tr:nth-child(even) {
+      background: #f8fafc;
+    }
+
+    .tc {
+      text-align: center;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-family: 'Consolas', monospace;
+      font-size: 9.5px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .pill-gauge {
+      background: #0f172a;
+      color: #f8fafc;
+    }
+
+    .pill-pos {
+      background: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #fca5a5;
+    }
+
+    .pill-neg {
+      background: #e2e8f0;
+      color: #0f172a;
+      border: 1px solid #94a3b8;
+    }
+
+    .pill-fuse {
+      background: #fef3c7;
+      color: #92400e;
+      border: 1px solid #fcd34d;
+    }
+
+    .pill-owned {
+      background: #d1fae5;
+      color: #065f46;
+      border: 1px solid #6ee7b7;
+    }
+
+    .pill-cost {
+      background: #e0f2fe;
+      color: #075985;
+      border: 1px solid #7dd3fc;
+    }
+
+    .notes-box {
+      background: #f8fafc;
+      border: 1px solid #94a3b8;
+      border-left: 4px solid #0284c7;
+      border-radius: 6px;
+      padding: 8px 12px;
+      margin-top: 6px;
+      break-inside: avoid;
+    }
+
+    .notes-box h3 {
+      font-size: 11px;
+      font-weight: 800;
+      margin-bottom: 4px;
+      color: #0f172a;
+    }
+
+    .notes-box ul {
+      padding-left: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .total-row td {
+      background: #ecfdf5 !important;
+      font-weight: 800;
+      color: #064e3b;
+      font-size: 10.5px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- PÁGINA 1: ESQUEMA ELÉCTRICO VECTORIAL -->
+  <section class="page-diagram">
+    <div class="doc-header">
+      <div>
+        <h1>ESQUEMA ELÉCTRICO CAMPER 12V DC — DOSSIER TÉCNICO DE MONTAJE</h1>
+      </div>
+      <div class="meta">
+        LiFePO4 300Ah (Bornes M8) · MRBF 300A directo · Busbars 300A (6×M8) · Caja Fentar 6 Vías (M5/M4) · Solar 450W
+      </div>
+    </div>
+    <div class="svg-frame">
+      <svg id="diagram-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2360 1380"></svg>
+    </div>
+  </section>
+
+  <!-- PÁGINA 2: TABLA 1 - RESUMEN DE TRAMOS Y PROTECCIONES -->
+  <section class="section">
+    <h2 class="sec-title">1. Resumen de Tramos, Secciones y Protecciones</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Zona / Tramo</th>
+          <th class="tc">Sección</th>
+          <th>Protección / Observación</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Batería Arranque (+) → Booster DC-DC IN (+)</td><td class="tc"><span class="pill pill-gauge">16 mm²</span></td><td><span class="pill pill-fuse">Fusible MIDI 60A (M5)</span> &lt; 20 cm de batería</td></tr>
+        <tr><td>Placa Solar 450W → Magnetotérmico → MPPT (+ / -)</td><td class="tc"><span class="pill pill-gauge">6 mm²</span></td><td><span class="pill pill-fuse">MC4 + Magnetotérmico DC 2P 25A</span></td></tr>
+        <tr><td>Booster DC-DC OUT (+) → Busbar Positivo (+)</td><td class="tc"><span class="pill pill-gauge">16 mm²</span></td><td><span class="pill pill-fuse">Fusible MIDI 40A (M5)</span></td></tr>
+        <tr><td>Regulador MPPT BAT (+) → Busbar Positivo (+)</td><td class="tc"><span class="pill pill-gauge">10 mm²</span></td><td><span class="pill pill-fuse">Fusible MIDI 40A (M5)</span></td></tr>
+        <tr><td>Masas Booster (16 mm²) y MPPT (10 mm²) → Busbar Negativo (-)</td><td class="tc"><span class="pill pill-gauge">16 / 10 mm²</span></td><td>Retorno directo (Anilla M8 en Busbar)</td></tr>
+        <tr><td>Batería LiFePO4 300Ah (+ M8) → Busbar Positivo (+)</td><td class="tc"><span class="pill pill-gauge">50 mm²</span></td><td><span class="pill pill-fuse">MRBF 300A (directo borne M8) + Cortacorrientes 300A</span></td></tr>
+        <tr><td>Batería LiFePO4 300Ah (- M8) → Busbar Negativo (-)</td><td class="tc"><span class="pill pill-gauge">50 mm²</span></td><td>Retorno directo (Anillas M8)</td></tr>
+        <tr><td>Busbar Negativo (-) → Masa Chasis Vehículo</td><td class="tc"><span class="pill pill-gauge">16 mm²</span></td><td>Puesta a masa carrocería (Anilla M8 / M10)</td></tr>
+        <tr><td>Busbar (+) → Boiler Carbest CozyWater 10L (12V / 200W)</td><td class="tc"><span class="pill pill-gauge">6 mm²</span></td><td><span class="pill pill-fuse">Magnetotérmico DC 1P 25A</span> (fijo en caja DIN, Anillas M8 en Busbars)</td></tr>
+        <tr><td>Busbar (+) → Panel USB PD 20W + QC3.0 + Mechero 150W + Voltímetro</td><td class="tc"><span class="pill pill-gauge">2,5 / 4 mm²</span></td><td><span class="pill pill-fuse">Portafusibles aéreo propio (15A, kit incluido)</span></td></tr>
+        <tr><td>Busbar (+) → Caja Fusibles Fentar 6 Vías IN (+)</td><td class="tc"><span class="pill pill-gauge">10 mm²</span></td><td><span class="pill pill-fuse">Fusible MIDI 60A (M5)</span> (Anilla M5 en Fentar)</td></tr>
+        <tr><td>Caja Fentar 6 Vías (-) → Busbar Negativo (-)</td><td class="tc"><span class="pill pill-gauge">10 mm²</span></td><td>Retorno común 6 vías (Anilla M5 → Anilla M8)</td></tr>
+        <tr><td><strong>Vía 1 (Troncal):</strong> Caja Fentar → Par #1 Wago 221-413</td><td class="tc"><span class="pill pill-gauge">2,5 mm²</span></td><td><span class="pill pill-fuse">Fusible 10A</span> (Anillas M4 en Fentar)</td></tr>
+        <tr><td>↳ <strong>Vía 1A:</strong> Par #1 Wago 221-413 → Claraboya OstarkDom 12V</td><td class="tc"><span class="pill pill-gauge">2,5 mm²</span></td><td>Salida directa Par #1 (~5A)</td></tr>
+        <tr><td>↳ <strong>Vía 1B:</strong> Cascada Wago 221-413 (#2–#4) → 4 Tiras LED (Salón, Cocina, Cama, Maletero)</td><td class="tc"><span class="pill pill-gauge">2,5 → 1,5 mm²</span></td><td>Puentes 2,5 mm² + <strong>4 × Int. 20A 3P LED</strong> (usa 8/10 Wago)</td></tr>
+        <tr><td><strong>Vía 2:</strong> Calefacción estacionaria Nordkapp Air 2kW</td><td class="tc"><span class="pill pill-gauge">4 mm²</span></td><td><span class="pill pill-fuse">Fusible 20A</span> (Anillas M4 en Fentar)</td></tr>
+        <tr><td><strong>Vía 3:</strong> Puerto USB-C #1 (100W)</td><td class="tc"><span class="pill pill-gauge">2,5 / 4 mm²</span></td><td><span class="pill pill-fuse">Fusible 15A</span> (4 mm² si &gt; 3 m, Anillas M4)</td></tr>
+        <tr><td><strong>Vía 4:</strong> Puerto USB-C #2 (100W)</td><td class="tc"><span class="pill pill-gauge">2,5 / 4 mm²</span></td><td><span class="pill pill-fuse">Fusible 15A</span> (4 mm² si &gt; 3 m, Anillas M4)</td></tr>
+        <tr><td><strong>Vía 5:</strong> Bomba VEVOR 12V (96W · 11,3 L/min · presostato)</td><td class="tc"><span class="pill pill-gauge">2,5 mm²</span></td><td><span class="pill pill-fuse">Fusible 15A</span> + <strong>Int. 20A 3P LED</strong> (Anillas M4)</td></tr>
+        <tr><td><strong>Vía 6:</strong> Nevera compresor 12V / Reserva</td><td class="tc"><span class="pill pill-gauge">4 mm²</span></td><td><span class="pill pill-fuse">Fusible 15A</span> (Anillas M4 en Fentar)</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- PÁGINA 3: TABLA 2 Y 3 - LISTADO DE CABLES PARA TALLER -->
+  <section class="section page-break">
+    <h2 class="sec-title red">2. Lista de Cables para Taller — ROJOS (+)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th class="tc">Grosor</th>
+          <th class="tc">Cant.</th>
+          <th>Extremo 1 (Origen / Terminal)</th>
+          <th>Extremo 2 (Destino / Terminal)</th>
+          <th>Nota para taller / montaje</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="tc"><span class="pill pill-pos">50 mm²</span></td><td class="tc">1</td><td><strong>Anilla M8</strong> → Salida <strong>MRBF 300A</strong> (en batería)</td><td><strong>Anilla M8</strong> <em>(o M10*)</em> → <strong>Cortacorrientes 300A</strong></td><td>Medir en obra y hacer completo</td></tr>
+        <tr><td class="tc"><span class="pill pill-pos">50 mm²</span></td><td class="tc">1</td><td><strong>Anilla M8</strong> <em>(o M10*)</em> → Salida <strong>Cortacorrientes</strong></td><td><strong>Anilla M8</strong> → <strong>Busbar Positivo (+)</strong></td><td>Medir en obra y hacer completo</td></tr>
+        <tr><td class="tc"><span class="pill pill-pos">16 mm²</span></td><td class="tc">1</td><td><strong>Anilla M8</strong> <em>(o M6 motor)</em> → Bat. Arranque (+)</td><td><strong>Anilla M5</strong> → Entrada <strong>MIDI 60A</strong></td><td>Muy corto (&lt; 20 cm)</td></tr>
+        <tr><td class="tc"><span class="pill pill-pos">16 mm²</span></td><td class="tc">1</td><td><strong>Anilla M5</strong> → Salida <strong>MIDI 60A</strong></td><td><strong>Pelado / Puntera 16 mm²</strong> <em>(o M6*)</em> → IN (+) <strong>Booster</strong></td><td>Cable largo: crimpar solo M5 antes de pasar</td></tr>
+        <tr><td class="tc"><span class="pill pill-pos">16 mm²</span></td><td class="tc">1</td><td><strong>Pelado / Puntera 16 mm²</strong> <em>(o M6*)</em> → OUT (+) <strong>Booster</strong></td><td><strong>Anilla M5</strong> → Entrada <strong>MIDI 40A (Booster)</strong></td><td>Hacer completo</td></tr>
+        <tr><td class="tc"><span class="pill pill-pos">16 mm²</span></td><td class="tc">1</td><td><strong>Anilla M5</strong> → Salida <strong>MIDI 40A (Booster)</strong></td><td><strong>Anilla M8</strong> → <strong>Busbar Positivo (+)</strong></td><td>Hacer completo</td></tr>
+        <tr><td class="tc"><span class="pill pill-pos">10 mm²</span></td><td class="tc">1</td><td><strong>Pelado / Puntera 10 mm²</strong> <em>(o M6*)</em> → BAT (+) <strong>MPPT</strong></td><td><strong>Anilla M5</strong> → Entrada <strong>MIDI 40A (MPPT)</strong></td><td>Hacer completo</td></tr>
+        <tr><td class="tc"><span class="pill pill-pos">10 mm²</span></td><td class="tc">1</td><td><strong>Anilla M5</strong> → Salida <strong>MIDI 40A (MPPT)</strong></td><td><strong>Anilla M8</strong> → <strong>Busbar Positivo (+)</strong></td><td>Hacer completo</td></tr>
+        <tr><td class="tc"><span class="pill pill-pos">10 mm²</span></td><td class="tc">1</td><td><strong>Anilla M8</strong> → <strong>Busbar Positivo (+)</strong></td><td><strong>Anilla M5</strong> → Entrada <strong>MIDI 60A (Fentar)</strong></td><td>Hacer completo</td></tr>
+        <tr><td class="tc"><span class="pill pill-pos">10 mm²</span></td><td class="tc">1</td><td><strong>Anilla M5</strong> → Salida <strong>MIDI 60A (Fentar)</strong></td><td><strong>Anilla M5</strong> → IN (+) <strong>Caja Fentar</strong></td><td>Hacer completo</td></tr>
+        <tr><td class="tc"><span class="pill pill-pos">6 mm²</span></td><td class="tc">1</td><td><strong>Conector MC4 (+)</strong> → Placa Solar 450W</td><td><strong>Pelado / Puntera 6 mm²</strong> → (+) <strong>Magnetotérmico 25A</strong></td><td>Pasar primero por pasatechos</td></tr>
+        <tr><td class="tc"><span class="pill pill-pos">6 mm²</span></td><td class="tc">1</td><td><strong>Pelado / Puntera 6 mm²</strong> → Salida (+) <strong>Magnetotérmico</strong></td><td><strong>Pelado / Puntera 6 mm²</strong> <em>(o M6*)</em> → PV (+) <strong>MPPT</strong></td><td>Sin anillas (prensa-cable)</td></tr>
+        <tr><td class="tc"><span class="pill pill-pos">6 mm²</span></td><td class="tc">1</td><td><strong>Anilla M8</strong> → <strong>Busbar Positivo (+)</strong></td><td><strong>Pelado / Puntera 6 mm²</strong> → Entrada <strong>Magnetotérmico DC 25A (Boiler)</strong></td><td>Hacer completo</td></tr>
+        <tr><td class="tc"><span class="pill pill-pos">6 mm²</span></td><td class="tc">1</td><td><strong>Pelado / Puntera 6 mm²</strong> → Salida <strong>Magnetotérmico DC 25A</strong></td><td>Conexión (+) <strong>Boiler Carbest 10L</strong></td><td>Pasar primero hacia el Boiler</td></tr>
+        <tr><td class="tc"><span class="pill pill-pos">4 mm²</span></td><td class="tc">1</td><td><strong>Anilla M4 (Amarilla)</strong> → Vía 2 (+) <strong>Caja Fentar</strong></td><td>Mazo (+) <strong>Calefacción Nordkapp 2kW</strong></td><td>Crimpar en obra tras pasar</td></tr>
+        <tr><td class="tc"><span class="pill pill-pos">4 mm²</span></td><td class="tc">1</td><td><strong>Anilla M4 (Amarilla)</strong> → Vía 6 (+) <strong>Caja Fentar</strong></td><td>Entrada (+) <strong>Nevera 12V</strong></td><td>Crimpar en obra tras pasar</td></tr>
+        <tr><td class="tc"><span class="pill pill-pos">2,5 mm²*</span></td><td class="tc">1</td><td><strong>Anilla M8 (Azul)</strong> → <strong>Busbar (+)</strong> <em>(Portafus. 15A kit)</em></td><td><strong>Faston 6,3 mm</strong> (en kit) → <strong>Panel USB + Mechero</strong></td><td>*4 mm² (Amarilla) si &gt; 3 m</td></tr>
+        <tr><td class="tc"><span class="pill pill-pos">2,5 mm²</span></td><td class="tc">1</td><td><strong>Anilla M4 (Azul)</strong> → Vía 1 (+) <strong>Caja Fentar</strong></td><td><strong>Pelado 11 mm</strong> → <strong>Par #1 Wago 221-413 (+)</strong></td><td>Tramo corto</td></tr>
+        <tr><td class="tc"><span class="pill pill-pos">2,5 mm²</span></td><td class="tc">1</td><td><strong>Pelado 11 mm</strong> → <strong>Par #1 Wago 221-413 (+)</strong></td><td>Entrada (+) <strong>Claraboya OstarkDom</strong></td><td>Conectar en techo</td></tr>
+        <tr><td class="tc"><span class="pill pill-pos">2,5 mm²*</span></td><td class="tc">1</td><td><strong>Anilla M4 (Azul)</strong> → Vía 3 (+) <strong>Caja Fentar</strong></td><td>Entrada (+) <strong>Puerto USB-C #1 (100W)</strong></td><td>*4 mm² (Amarilla) si &gt; 3 m</td></tr>
+        <tr><td class="tc"><span class="pill pill-pos">2,5 mm²*</span></td><td class="tc">1</td><td><strong>Anilla M4 (Azul)</strong> → Vía 4 (+) <strong>Caja Fentar</strong></td><td>Entrada (+) <strong>Puerto USB-C #2 (100W)</strong></td><td>*4 mm² (Amarilla) si &gt; 3 m</td></tr>
+        <tr><td class="tc"><span class="pill pill-pos">2,5 mm²</span></td><td class="tc">2</td><td>Tramo A: <strong>Anilla M4 (Azul)</strong> Vía 5 (+) → <strong>Int. 20A 3P (Rojo)</strong></td><td>Tramo B: <strong>Int. 20A (Amarillo)</strong> → (+) <strong>Bomba VEVOR 12V</strong></td><td>RUNCCI-YUN 3P (+ negro a masa)</td></tr>
+        <tr><td class="tc"><span class="pill pill-pos">2,5 mm²</span></td><td class="tc">3 puentes</td><td><strong>Pelado 11 mm</strong> Wago #1 (+) → #2 → #3</td><td><strong>Pelado 11 mm</strong> Wago #4 (+)</td><td>Cascada 2,5 mm² por zonas</td></tr>
+        <tr><td class="tc"><span class="pill pill-pos">1,5 mm²</span></td><td class="tc">8 (4 zonas)</td><td>Tramo A: <strong>Pelado 11 mm</strong> Wago #2/#3/#4 (+) → <strong>4 × Int. (Rojo)</strong></td><td>Tramo B: <strong>4 × Int. (Amarillo)</strong> → (+) <strong>Salón / Cocina / Cama / Maletero</strong></td><td>4 × RUNCCI-YUN 3P (+ negro a Wago -)</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="section page-break">
+    <h2 class="sec-title black">3. Lista de Cables para Taller — NEGROS (-)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th class="tc">Grosor</th>
+          <th class="tc">Cant.</th>
+          <th>Extremo 1 (Origen / Terminal)</th>
+          <th>Extremo 2 (Destino / Terminal)</th>
+          <th>Nota para taller / montaje</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="tc"><span class="pill pill-neg">50 mm²</span></td><td class="tc">1</td><td><strong>Anilla M8</strong> → Borne (-) M8 <strong>Batería 300Ah</strong></td><td><strong>Anilla M8</strong> → <strong>Busbar Negativo (-)</strong></td><td>Hacer completo tras medir</td></tr>
+        <tr><td class="tc"><span class="pill pill-neg">16 mm²</span></td><td class="tc">1</td><td><strong>Pelado / Puntera 16 mm²</strong> <em>(o M6*)</em> → Masa (-) <strong>Booster</strong></td><td><strong>Anilla M8</strong> → <strong>Busbar Negativo (-)</strong></td><td>Hacer completo</td></tr>
+        <tr><td class="tc"><span class="pill pill-neg">16 mm²</span></td><td class="tc">1</td><td><strong>Anilla M8</strong> → <strong>Busbar Negativo (-)</strong></td><td><strong>Anilla M8 o M10</strong> <em>(tornillo chasis)</em> → <strong>Masa Chasis</strong></td><td>Comprobar tornillo chapa vehículo</td></tr>
+        <tr><td class="tc"><span class="pill pill-neg">10 mm²</span></td><td class="tc">1</td><td><strong>Pelado / Puntera 10 mm²</strong> <em>(o M6*)</em> → Masa (-) <strong>MPPT</strong></td><td><strong>Anilla M8</strong> → <strong>Busbar Negativo (-)</strong></td><td>Hacer completo</td></tr>
+        <tr><td class="tc"><span class="pill pill-neg">10 mm²</span></td><td class="tc">1</td><td><strong>Anilla M5</strong> → Borne (-) <strong>Caja Fentar</strong></td><td><strong>Anilla M8</strong> → <strong>Busbar Negativo (-)</strong></td><td>Hacer completo</td></tr>
+        <tr><td class="tc"><span class="pill pill-neg">6 mm²</span></td><td class="tc">1</td><td><strong>Conector MC4 (-)</strong> → Placa Solar 450W</td><td><strong>Pelado / Puntera 6 mm²</strong> → (-) <strong>Magnetotérmico 25A</strong></td><td>Pasar primero por techo</td></tr>
+        <tr><td class="tc"><span class="pill pill-neg">6 mm²</span></td><td class="tc">1</td><td><strong>Pelado / Puntera 6 mm²</strong> → Salida (-) <strong>Magnetotérmico</strong></td><td><strong>Pelado / Puntera 6 mm²</strong> <em>(o M6*)</em> → PV (-) <strong>MPPT</strong></td><td>Sin anillas (prensa-cable)</td></tr>
+        <tr><td class="tc"><span class="pill pill-neg">6 mm²</span></td><td class="tc">1</td><td>Salida (-) <strong>Boiler Carbest 10L</strong></td><td><strong>Anilla M8</strong> → <strong>Busbar Negativo (-)</strong></td><td>Crimpar M8 en lado Busbar</td></tr>
+        <tr><td class="tc"><span class="pill pill-neg">4 mm²</span></td><td class="tc">1</td><td>Mazo (-) <strong>Calefacción Nordkapp 2kW</strong></td><td><strong>Anilla M4 (Amarilla)</strong> → Vía 2 (-) <strong>Caja Fentar</strong></td><td>Crimpar en obra tras pasar</td></tr>
+        <tr><td class="tc"><span class="pill pill-neg">4 mm²</span></td><td class="tc">1</td><td>Salida (-) <strong>Nevera 12V</strong></td><td><strong>Anilla M4 (Amarilla)</strong> → Vía 6 (-) <strong>Caja Fentar</strong></td><td>Crimpar en obra tras pasar</td></tr>
+        <tr><td class="tc"><span class="pill pill-neg">2,5 mm²*</span></td><td class="tc">1</td><td><strong>Faston 6,3 mm</strong> (en kit) → <strong>Panel USB + Mechero</strong></td><td><strong>Anilla M8 (Azul)</strong> → <strong>Busbar Negativo (-)</strong></td><td>*4 mm² (Amarilla) si &gt; 3 m</td></tr>
+        <tr><td class="tc"><span class="pill pill-neg">2,5 mm²</span></td><td class="tc">1</td><td><strong>Pelado 11 mm</strong> → <strong>Par #1 Wago 221-413 (-)</strong></td><td><strong>Anilla M4 (Azul)</strong> → Vía 1 (-) <strong>Caja Fentar</strong></td><td>Tramo corto</td></tr>
+        <tr><td class="tc"><span class="pill pill-neg">2,5 mm²</span></td><td class="tc">1</td><td>Salida (-) <strong>Claraboya OstarkDom</strong></td><td><strong>Pelado 11 mm</strong> → <strong>Par #1 Wago 221-413 (-)</strong></td><td>Conectar en techo</td></tr>
+        <tr><td class="tc"><span class="pill pill-neg">2,5 mm²*</span></td><td class="tc">1</td><td>Salida (-) <strong>Puerto USB-C #1 (100W)</strong></td><td><strong>Anilla M4 (Azul)</strong> → Vía 3 (-) <strong>Caja Fentar</strong></td><td>*4 mm² (Amarilla) si &gt; 3 m</td></tr>
+        <tr><td class="tc"><span class="pill pill-neg">2,5 mm²*</span></td><td class="tc">1</td><td>Salida (-) <strong>Puerto USB-C #2 (100W)</strong></td><td><strong>Anilla M4 (Azul)</strong> → Vía 4 (-) <strong>Caja Fentar</strong></td><td>*4 mm² (Amarilla) si &gt; 3 m</td></tr>
+        <tr><td class="tc"><span class="pill pill-neg">2,5 mm²</span></td><td class="tc">1</td><td>Salida (-) <strong>Bomba VEVOR 12V (96W)</strong></td><td><strong>Anilla M4 (Azul)</strong> → Vía 5 (-) <strong>Caja Fentar</strong></td><td>Crimpar en obra tras pasar</td></tr>
+        <tr><td class="tc"><span class="pill pill-neg">1,5 mm²</span></td><td class="tc">4 (4 zonas)</td><td>Salida (-) <strong>LED Salón / Cocina / Cama / Maletero</strong></td><td><strong>Pelado 11 mm</strong> → <strong>Wago #2/#3/#4 (-)</strong></td><td>Retornos individuales LED</td></tr>
+        <tr><td class="tc"><span class="pill pill-neg">2,5 mm²</span></td><td class="tc">3 puentes</td><td><strong>Pelado 11 mm</strong> Wago #4 (-) → #3 → #2</td><td><strong>Pelado 11 mm</strong> → <strong>Wago #1 (-)</strong></td><td>Retorno cascada Vía 1B</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- PÁGINA 4: TABLA 4 - ANILLAS -->
+  <section class="section page-break">
+    <h2 class="sec-title amber">4. Lista Exacta de Terminales de Anilla a Comprar</h2>
+    <table>
+      <thead>
+        <tr>
+          <th class="tc">Sección</th>
+          <th class="tc">Perno / Color</th>
+          <th class="tc">Cantidad</th>
+          <th>Ubicación exacta</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="tc"><span class="pill pill-gauge">50 mm²</span></td><td class="tc"><strong>Ø M8</strong> (cobre)</td><td class="tc"><strong>6 uds</strong></td><td>MRBF salida, Cortacorrientes (×2), Busbars (+ y -), Batería (-) <em>(ajustar si cortac. es M10)</em></td></tr>
+        <tr><td class="tc"><span class="pill pill-gauge">16 mm²</span></td><td class="tc"><strong>Ø M8</strong> (cobre)</td><td class="tc"><strong>4 uds</strong></td><td>Booster + / - en Busbars, Masa Chasis (M8/M10), Batería Arranque (+)</td></tr>
+        <tr><td class="tc"><span class="pill pill-gauge">16 mm²</span></td><td class="tc"><strong>Ø M5</strong> (cobre)</td><td class="tc"><strong>4 uds</strong></td><td>Portafusibles MIDI 60A (×2) y MIDI 40A Booster (×2)</td></tr>
+        <tr><td class="tc"><span class="pill pill-gauge">10 mm²</span></td><td class="tc"><strong>Ø M8</strong> (cobre)</td><td class="tc"><strong>4 uds</strong></td><td>MPPT + / - en Busbars, Caja Fentar + / - en Busbars</td></tr>
+        <tr><td class="tc"><span class="pill pill-gauge">10 mm²</span></td><td class="tc"><strong>Ø M5</strong> (cobre)</td><td class="tc"><strong>6 uds</strong></td><td>Portafusibles MIDI 40A MPPT (×2), MIDI 60A Fentar (×2), bornes IN(+)/(-) Caja Fentar (×2)</td></tr>
+        <tr><td class="tc"><span class="pill pill-gauge">6 mm²</span></td><td class="tc"><strong>Ø M8</strong> (cobre)</td><td class="tc"><strong>2 uds</strong></td><td>Boiler Carbest + / - en Busbars</td></tr>
+        <tr><td class="tc"><span class="pill pill-gauge">4–6 mm²</span></td><td class="tc"><strong>Ø M4 (Amarilla)</strong></td><td class="tc"><strong>10 uds</strong></td><td>Calefacción (×2), Nevera (×2) en Fentar + repuestos / USB-C si &gt; 3 m</td></tr>
+        <tr><td class="tc"><span class="pill pill-gauge">1,5–2,5 mm²</span></td><td class="tc"><strong>Ø M4 (Azul)</strong></td><td class="tc"><strong>12 uds</strong></td><td>Vía 1 (×2), Vía 3 (×2), Vía 4 (×2), Vía 5 (×2) en Fentar + repuestos</td></tr>
+        <tr><td class="tc"><span class="pill pill-gauge">1,5–2,5 mm²</span></td><td class="tc"><strong>Ø M8 (Azul)</strong></td><td class="tc"><strong>2 uds</strong></td><td>Panel USB/Mechero + / - en Busbars <em>(cambiar a Amarilla M8 si &gt; 3 m)</em></td></tr>
+        <tr><td class="tc"><em>Opcional</em></td><td class="tc"><strong>Ø M6</strong> (cobre)</td><td class="tc"><em>(6 uds)</em></td><td><em>Solo si tu Eco-Worthy lleva pernos M6 en vez de prensa-cable (2×16, 2×10, 2×6 mm²)</em></td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- PÁGINA 5: TABLA 5 - MATERIALES, COSTE Y NOTAS -->
+  <section class="section page-break">
+    <h2 class="sec-title green">5. Todos los Elementos Requeridos y Coste Aproximado</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Categoría</th>
+          <th>Elemento requerido</th>
+          <th class="tc">Cant. aprox.</th>
+          <th class="tc">Estado / Coste aprox.</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Ya comprado</td><td>Caja Fusibles Fentar 6 Vías ATC/ATO (100A máx, M5/M4 + fusibles)</td><td class="tc">1 ud</td><td class="tc"><span class="pill pill-owned">Comprado (14,99 €)</span></td></tr>
+        <tr><td>Ya comprado</td><td>Panel USB PD 20W + QC3.0 + Mechero 150W + Voltímetro (portafus. incl.)</td><td class="tc">1 ud</td><td class="tc"><span class="pill pill-owned">Comprado (22,99 €)</span></td></tr>
+        <tr><td>Ya comprado</td><td>Pareja Busbars Simangy M8 300A (Rojo + Negro, <strong>6× pernos M8</strong>, con tapa)</td><td class="tc">1 par</td><td class="tc"><span class="pill pill-owned">Comprado (41,72 €)</span></td></tr>
+        <tr><td>Ya comprado</td><td>Cortacorrientes Pindex 300A (12–48V, incl. 4 anillas cobre + termorretráctil)</td><td class="tc">1 ud</td><td class="tc"><span class="pill pill-owned">Comprado (18,99 €)</span></td></tr>
+        <tr><td>Ya comprado</td><td><strong>QUARKZMAN Fusible de Bloque Terminal MRBF 300A</strong> (58V DC, directo borne M8)</td><td class="tc">1 kit</td><td class="tc"><span class="pill pill-owned">Comprado (18,49 €)</span></td></tr>
+        <tr><td>Ya comprado</td><td>Pack 4 Portafusibles MIDI + 10 fusibles FengYunDe (usa 2×40A + 2×60A)</td><td class="tc">1 pack</td><td class="tc"><span class="pill pill-owned">Comprado (11,99 €)</span></td></tr>
+        <tr><td>Ya comprado</td><td>Caja Estanca DIN 3 Módulos IP65 QINGLEE-EU (Wengart 2P + Jadeshay 1P)</td><td class="tc">1 ud</td><td class="tc"><span class="pill pill-owned">Comprado (9,99 €)</span></td></tr>
+        <tr><td>Ya comprado</td><td>Magnetotérmico DC 2P 25A Wengart 500V DC (Placa Solar, Mód. 1–2)</td><td class="tc">1 ud</td><td class="tc"><span class="pill pill-owned">Comprado (13,59 €)</span></td></tr>
+        <tr><td>Ya comprado</td><td>Magnetotérmico DC 1P 25A Jadeshay DZ47s-63Z-1P (Boiler 6 mm², Mód. 3)</td><td class="tc">1 ud</td><td class="tc"><span class="pill pill-owned">Comprado (9,09 €)</span></td></tr>
+        <tr><td>Ya comprado</td><td>Pack 10 × Clemas Wago 221-413 GELiTec (usa 8 en cascada Vía 1 + 2 rep.)</td><td class="tc">10 uds</td><td class="tc"><span class="pill pill-owned">Comprado (9,48 €)</span></td></tr>
+        <tr><td>Ya comprado</td><td>Pack 5 × Interruptores Rocker 20A LED Azul RUNCCI-YUN (3P: 1 Bomba + 4 LED)</td><td class="tc">5 uds</td><td class="tc"><span class="pill pill-owned">Comprado (9,49 €)</span></td></tr>
+        <tr><td>Ya comprado</td><td>ISOLATECH Tubo corrugado sin ranura UL94V0: Ø16/20 mm (25 m) + Ø20/25 mm (10 m)</td><td class="tc">35 m total</td><td class="tc"><span class="pill pill-owned">Comprado (30,99 + 22,99 €)</span></td></tr>
+        <tr><td>Ya comprado</td><td>Romon 400 uds Termorretráctil 3:1 con Adhesivo (Rojo/Negro, 3,2 a 25,4 mm)</td><td class="tc">400 uds</td><td class="tc"><span class="pill pill-owned">Comprado (13,24 €)</span></td></tr>
+        <tr><td>Equipo principal</td><td>Batería LiFePO4 300Ah Eco-Worthy (M8) · Eco-Worthy DC-DC+MPPT · Placa 450W · Boiler · Bomba VEVOR 96W (43,90 € ref.) · Consumos</td><td class="tc">1 lote</td><td class="tc"><span class="pill pill-owned">Ya disponible</span></td></tr>
+        <tr><td>Cableado</td><td>Cable flexible <strong>50 mm²</strong> (MRBF → Cortacorrientes → Busbars y Bat -)</td><td class="tc">~1,5 m</td><td class="tc"><span class="pill pill-cost">22 – 32 €</span></td></tr>
+        <tr><td>Cableado</td><td>Cable flexible <strong>16 mm²</strong> (Motor, Booster y Masa Chasis)</td><td class="tc">~8–10 m</td><td class="tc"><span class="pill pill-cost">35 – 50 €</span></td></tr>
+        <tr><td>Cableado</td><td>Cable flexible <strong>10 mm²</strong> (MPPT y alimentación Caja Fentar)</td><td class="tc">~6–8 m</td><td class="tc"><span class="pill pill-cost">20 – 30 €</span></td></tr>
+        <tr><td>Cableado</td><td>Cable flexible <strong>6 mm²</strong> (Placa Solar y Boiler 200W)</td><td class="tc">~12–16 m</td><td class="tc"><span class="pill pill-cost">24 – 36 €</span></td></tr>
+        <tr><td>Cableado</td><td>Cable flexible <strong>4 mm²</strong> (Calefacción, Nevera y USB &gt; 3 m)</td><td class="tc">~12–15 m</td><td class="tc"><span class="pill pill-cost">18 – 25 €</span></td></tr>
+        <tr><td>Cableado</td><td>Cable flexible <strong>2,5 mm² y 1,5 mm²</strong> (Claraboya, Bomba, USB, 4 zonas LED)</td><td class="tc">~30–40 m</td><td class="tc"><span class="pill pill-cost">25 – 38 €</span></td></tr>
+        <tr><td>Anillas</td><td>Pack completo terminales de anilla (Tabla 4: 50 / 16 / 10 / 6 / 4 / 2,5 mm²)</td><td class="tc">52 uds</td><td class="tc"><span class="pill pill-cost">38 – 63 €</span></td></tr>
+        <tr><td>Acabado</td><td>Bridas de nylon negras <em>(corrugado ISOLATECH y termorretráctil Romon ya comprados)</em></td><td class="tc">1 lote</td><td class="tc"><span class="pill pill-cost">3 – 5 €</span></td></tr>
+        <tr class="total-row"><td colspan="2">TOTAL PENDIENTE DE COMPRAR (ya descontados 248,03 € en material auxiliar ya comprado)</td><td class="tc">—</td><td class="tc">~185 – 280 €</td></tr>
+      </tbody>
+    </table>
+
+    <div class="notes-box">
+      <h3>Notas clave de seguridad y montaje</h3>
+      <ul>
+        <li><strong>Montaje del QUARKZMAN MRBF 300A:</strong> la base metálica va directa al borne (+) M8 de la batería, y la anilla roja de 50 mm² se coloca <strong>encima del cubo fusible</strong> bajo la tuerca superior (nunca debajo tocando el borne de la batería).</li>
+        <li><strong>Interruptores RUNCCI-YUN 3 Pines (LED azul):</strong> conectar <strong>Rojo</strong> a alimentación (+), <strong>Amarillo</strong> a salida (+) hacia Bomba/LED y el hilo fino <strong>Negro (-)</strong> a la Wago (-) o Busbar (-) para iluminar el LED azul al activar.</li>
+        <li><strong>Caja DIN QINGLEE (Wengart 2P + Jadeshay 1P) y Corrugado sin ranura:</strong> respeta (+)/(-) en el Wengart 2P solar; pasa los cables por los tubos ISOLATECH (Ø16/20 y Ø20/25 mm) <strong>antes de crimpar</strong> la 2ª anilla.</li>
+        <li><strong>Busbars Simangy 300A (6×M8) y verificación:</strong> apila Boiler 6 mm² abajo + USB 2,5/4 mm² encima en el Negativo (-); confirma métrica de las 4 anillas del Pindex 300A (M8/M10) y bornes del combo Eco-Worthy.</li>
+      </ul>
+    </div>
+  </section>
+
+  <script src="svg-utils.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

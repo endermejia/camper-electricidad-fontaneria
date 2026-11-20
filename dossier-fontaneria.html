@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dossier Fontanería Camper Sprinter L2H2 — Agua Limpia, ACS 10L y Grises 40L</title>
+  <style>
+    @page {
+      size: A4 landscape;
+      margin: 8mm 10mm 10mm 10mm;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      color: #0f172a;
+      background: #ffffff;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      font-size: 10px;
+      line-height: 1.35;
+    }
+
+    .page-diagram {
+      page-break-after: always;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .doc-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #0f172a;
+      color: #f8fafc;
+      padding: 7px 14px;
+      border-radius: 8px;
+    }
+
+    .doc-header h1 {
+      font-size: 13.5px;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+    }
+
+    .doc-header .meta {
+      font-size: 10px;
+      color: #cbd5e1;
+      text-align: right;
+    }
+
+    .svg-frame {
+      width: 100%;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #f8fafc;
+    }
+
+    #diagram-svg {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .section {
+      margin-bottom: 12px;
+    }
+
+    .page-break {
+      page-break-before: always;
+    }
+
+    h2.sec-title {
+      font-size: 12px;
+      font-weight: 800;
+      color: #0f172a;
+      background: #e0f2fe;
+      border-left: 4px solid #0284c7;
+      padding: 5px 10px;
+      border-radius: 4px;
+      margin-bottom: 6px;
+      break-after: avoid;
+    }
+
+    h2.sec-title.green {
+      border-left-color: #059669;
+      background: #ecfdf5;
+      color: #064e3b;
+    }
+
+    h2.sec-title.slate {
+      border-left-color: #334155;
+      background: #f1f5f9;
+      color: #0f172a;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 8px;
+    }
+
+    thead {
+      display: table-header-group;
+    }
+
+    tr {
+      break-inside: avoid;
+    }
+
+    th, td {
+      border: 1px solid #cbd5e1;
+      padding: 3.5px 6px;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    th {
+      background: #1e293b;
+      color: #f8fafc;
+      font-size: 9.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    tbody tr:nth-child(even) {
+      background: #f8fafc;
+    }
+
+    .tc {
+      text-align: center;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-family: 'Consolas', monospace;
+      font-size: 9.5px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .pill-blue {
+      background: #e0f2fe;
+      color: #075985;
+      border: 1px solid #7dd3fc;
+    }
+
+    .pill-red {
+      background: #fee2e2;
+      color: #991b1b;
+      border: 1px solid #fca5a5;
+    }
+
+    .pill-grey {
+      background: #e2e8f0;
+      color: #1e293b;
+      border: 1px solid #94a3b8;
+    }
+
+    .pill-amber {
+      background: #fef3c7;
+      color: #92400e;
+      border: 1px solid #fcd34d;
+    }
+
+    .pill-owned {
+      background: #d1fae5;
+      color: #065f46;
+      border: 1px solid #6ee7b7;
+    }
+
+    .notes-box {
+      background: #f8fafc;
+      border: 1px solid #94a3b8;
+      border-left: 4px solid #0284c7;
+      border-radius: 6px;
+      padding: 8px 12px;
+      margin-top: 8px;
+      break-inside: avoid;
+    }
+
+    .notes-box h3 {
+      font-size: 11px;
+      font-weight: 800;
+      margin-bottom: 4px;
+      color: #0f172a;
+    }
+
+    .notes-box ul {
+      padding-left: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+  </style>
+</head>
+<body data-doc="plumbing">
+
+  <!-- PÁGINA 1: ESQUEMA HIDRÁULICO VECTORIAL -->
+  <section class="page-diagram">
+    <div class="doc-header">
+      <div>
+        <h1>ESQUEMA HIDRÁULICO SPRINTER L2H2 — DOSSIER DE FONTANERÍA</h1>
+      </div>
+      <div class="meta">
+        Varile 40/10 mm · VEVOR + Fiamma A20 + Reductor 1,5–2 bar · Boiler Carbest 10L + Nordkapp · Grises 40L (Ø25 mm)
+      </div>
+    </div>
+    <div class="svg-frame">
+      <svg id="diagram-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2360 1380"></svg>
+    </div>
+  </section>
+
+  <!-- PÁGINA 2: TABLA 1 - ORDEN LÓGICO DE MONTAJE -->
+  <section class="section">
+    <h2 class="sec-title">1. Orden Lógico de Montaje (Desde la Captación hasta el Desagüe)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th class="tc">Paso</th>
+          <th>Tramo / Circuito</th>
+          <th class="tc">Diámetro</th>
+          <th>Uniones / Racores / Abrazaderas</th>
+          <th>Seguridad Mecánica y Estanqueidad</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="tc"><strong>1</strong></td>
+          <td>Bocana exterior → Pasamuros codo Varile</td>
+          <td class="tc"><span class="pill pill-blue">Ø 40 mm espiral</span></td>
+          <td>Pasamuros codo 40 mm + 2× Abr. Inox <strong>40–60 mm</strong> por extremo</td>
+          <td>Sellar bocana con polímero MS; trazado sin bolsa ("U") ni contrapendiente</td>
+        </tr>
+        <tr>
+          <td class="tc"><strong>2</strong></td>
+          <td>Pasamuros superior Varile → Venteo bajos</td>
+          <td class="tc"><span class="pill pill-blue">Ø 10 mm</span></td>
+          <td>Pasamuros sup. 10 mm + Abr. Inox <strong>W4 (10–16 mm)</strong> + pasachapas suelo</td>
+          <td>Hacer cuello de cisne alto (&gt; bocana) para evitar derrames; rejilla anti-insectos</td>
+        </tr>
+        <tr>
+          <td class="tc"><strong>3</strong></td>
+          <td>Aspiración Varile → Llave bola → Prefiltro</td>
+          <td class="tc"><span class="pill pill-blue">Ø 10 mm azul</span></td>
+          <td>Salida inf. <strong>3/4"M → espiga 10 mm</strong> + Llave bola 10 mm + Prefiltro malla</td>
+          <td>Sellar rosca 3/4" con Teflón/Loctite 55 sin forzar PE; prefiltro protege bomba</td>
+        </tr>
+        <tr>
+          <td class="tc"><strong>4</strong></td>
+          <td>Bomba a presión VEVOR (60 PSI / ~4 bar)</td>
+          <td class="tc"><span class="pill pill-blue">Ø 10 mm azul</span></td>
+          <td>Espigas bomba 10 mm + Abr. Inox W4 (10–16 mm) · Vía 5 (15A + Int. 3P)</td>
+          <td>Silentblocks goma sobre madera (nunca chapa); curva 25 cm en entrada/salida</td>
+        </tr>
+        <tr>
+          <td class="tc"><strong>5</strong></td>
+          <td>Salida Bomba → Vaso de expansión Fiamma A20</td>
+          <td class="tc"><span class="pill pill-blue">Ø 10 mm azul</span></td>
+          <td>Espigas Fiamma A20 + Abr. Inox W4 (10–16 mm)</td>
+          <td>Siempre <strong>antes del reductor</strong> (lado alta); ajustar aire sup. ~1,5 bar</td>
+        </tr>
+        <tr>
+          <td class="tc"><strong>6</strong></td>
+          <td>Vaso A20 → Reductor presión 1/2" c/ manómetro y filtro</td>
+          <td class="tc"><span class="pill pill-blue">Ø 10 mm azul</span></td>
+          <td>2× Racores latón <strong>1/2" → espiga 10 mm</strong> + Teflón/Loctite 55</td>
+          <td>Calibrar estrictamente a <strong>1,5–2,0 bar</strong> en reposo para proteger Boiler/grifos</td>
+        </tr>
+        <tr>
+          <td class="tc"><strong>7</strong></td>
+          <td>Entorno técnico Nordkapp Air 2kW</td>
+          <td class="tc"><span class="pill pill-amber">Arcón técnico</span></td>
+          <td>Chapa base estanca al suelo · Vía 2 (20A · 4 mm²)</td>
+          <td>Aporta calor anti-heladas; mantener &gt; 5–10 cm de distancia a PE y tubos</td>
+        </tr>
+        <tr>
+          <td class="tc"><strong>8</strong></td>
+          <td>Te fría #1 → Purga/Alivio → Boiler Carbest 10L IN</td>
+          <td class="tc"><span class="pill pill-blue">Ø 10 mm azul</span></td>
+          <td>Te 10 mm + Válvula alivio/purga bajos + Latón <strong>1/2"H → 10 mm</strong> (inferior)</td>
+          <td>Apretar sujetando con 2 llaves; alivio 2,5–3 bar para dilatación térmica</td>
+        </tr>
+        <tr>
+          <td class="tc"><strong>9</strong></td>
+          <td>Boiler Carbest 10L OUT (sup.) → Te caliente #3</td>
+          <td class="tc"><span class="pill pill-red">Ø 10 mm roja</span></td>
+          <td>Latón <strong>1/2"H → 10 mm</strong> (superior) + Te 10 mm + Abr. W4 (10–16 mm)</td>
+          <td>Manguera roja ACS alta temp.; nunca encender 200W en seco sin purgar</td>
+        </tr>
+        <tr>
+          <td class="tc"><strong>10</strong></td>
+          <td>Tes 10 mm → Fregadero y Ducha (monomando + gatillo)</td>
+          <td class="tc"><span class="pill pill-red">Ø 10 mm azul/roja</span></td>
+          <td>Colas grifo 10 mm + Abr. Inox W4 (10–16 mm)</td>
+          <td>Microinterruptor grifo SIN conectar (8A lo quemaría); cerrar monomando tras uso</td>
+        </tr>
+        <tr>
+          <td class="tc"><strong>11</strong></td>
+          <td>Desagüe Ducha (codo escalonado) y Fregadero</td>
+          <td class="tc"><span class="pill pill-grey">Ø 25 mm liso</span></td>
+          <td>Cortar codo escalonado a Ø 25 mm + <strong>2× Sifones membrana seca</strong></td>
+          <td>Imprescindible sifón anti-olor en ambos; pendiente continua ≥ 2% sin panzas</td>
+        </tr>
+        <tr>
+          <td class="tc"><strong>12</strong></td>
+          <td>Colector "Y" (o "T") → Depósito Grises 40L (bajos)</td>
+          <td class="tc"><span class="pill pill-grey">Ø 25 mm liso</span></td>
+          <td>Pieza "Y" 45° (o "T") + Pasamuros 25 mm + Abr. Inox <strong>20–32 mm</strong></td>
+          <td>Pasachapas sellado MS; pletinas acero M8 a travesaños; venteo sup. + llave bola</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- PÁGINA 3: TABLA 2 - MANGUERAS, RACORES Y PRUEBA DE ESTANQUEIDAD -->
+  <section class="section page-break">
+    <h2 class="sec-title green">2. Despiece de Mangueras, Racores, Abrazaderas y Sellado</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Categoría</th>
+          <th>Elemento / Especificación</th>
+          <th class="tc">Cant. aprox.</th>
+          <th class="tc">Medida / Norma</th>
+          <th>Aplicación exacta</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Manguera</td><td>Manguera espiral alimentaria reforzada</td><td class="tc">~1–1,5 m</td><td class="tc"><span class="pill pill-blue">Ø 40 mm</span></td><td>Bocana exterior → pasamuros codo Varile</td></tr>
+        <tr><td>Manguera</td><td>Manguera alimentaria flexible AZUL (venteo, aspiración y fría)</td><td class="tc">~10–15 m</td><td class="tc"><span class="pill pill-blue">Ø 10 mm</span></td><td>Venteo, salida Varile → Bomba → A20 → Reductor → Boiler/Grifos</td></tr>
+        <tr><td>Manguera</td><td>Manguera alimentaria flexible ROJA alta temperatura (ACS)</td><td class="tc">~6–10 m</td><td class="tc"><span class="pill pill-red">Ø 10 mm</span></td><td>Salida superior Boiler Carbest 10L → Te → Fregadero y Ducha</td></tr>
+        <tr><td>Manguera</td><td>Tubería corrugada flexible con <strong>interior liso</strong></td><td class="tc">~4–6 m</td><td class="tc"><span class="pill pill-grey">Ø 25 mm</span></td><td>Plato de ducha y fregadero → "Y"/"T" → Depósito grises 40L</td></tr>
+        <tr><td>Racores/Tes</td><td>Pasamuros Varile (codo 40 mm + sup. 10 mm) y adaptador 3/4"M → 10 mm</td><td class="tc">3 uds</td><td class="tc"><span class="pill pill-blue">40 / 10 mm / 3/4"</span></td><td>Entradas y salida depósito agua limpia Varile</td></tr>
+        <tr><td>Válvulas/Filtro</td><td>Llave bola doble espiga 10 mm + Prefiltro malla 10 mm + Alivio/purga Boiler</td><td class="tc">3 uds</td><td class="tc"><span class="pill pill-amber">Ø 10 mm</span></td><td>Aislamiento Varile, protección bomba y seguridad/vaciado Boiler</td></tr>
+        <tr><td>Latón</td><td>Racores latón rosca hembra 1/2" a espiga 10 mm (Boiler ×2 + Reductor ×2)</td><td class="tc">4 uds</td><td class="tc"><span class="pill pill-amber">1/2"H → 10 mm</span></td><td>Conexiones roscadas del Reductor 1/2" y Boiler Carbest 10L</td></tr>
+        <tr><td>Reparto/Grises</td><td>3× Tes 10 mm + 2× Sifones compactos + Pieza "Y"/"T" 25 mm + Pasamuros 25 mm</td><td class="tc">7 uds</td><td class="tc"><span class="pill pill-grey">10 / 25 mm</span></td><td>Distribución fría/caliente y unión collectors aguas grises</td></tr>
+        <tr><td>Abrazaderas</td><td>Abrazaderas acero inoxidable (<strong>40–60 mm</strong> · <strong>W4 10–16 mm</strong> · <strong>20–32 mm</strong>)</td><td class="tc">3 + 22 + 7</td><td class="tc"><span class="pill pill-owned">Inox W4</span></td><td>Estanqueidad mecánica en cada espiga de 40, 10 y 25 mm</td></tr>
+        <tr><td>Fijación/Sellado</td><td>Teflón/Loctite 55 + Polímero MS + Cinchas/pletinas acero M8</td><td class="tc">1 lote</td><td class="tc"><span class="pill pill-owned">Montaje bajos</span></td><td>Roscas, pasachapas y fijación del depósito 40L (99×40×10 cm)</td></tr>
+      </tbody>
+    </table>
+
+    <div class="notes-box">
+      <h3>Protocolo de Puesta en Marcha y Estanqueidad (antes de cerrar muebles)</h3>
+      <ul>
+        <li><strong>1. Llenado y purga de aire:</strong> llena el Varile comprobando bocana y rosca 3/4"; abre la llave de bola 10 mm, activa el interruptor de bomba VEVOR (Vía 5) y abre los grifos en posición caliente hasta llenar por completo los 10 L del Boiler sin burbujas.</li>
+        <li><strong>2. Ajuste de presión (1,5–2,0 bar):</strong> con bomba en reposo y grifos cerrados, ajusta el Fiamma A20 (~1,5 bar en su válvula) y calibra el reductor de 1/2" entre <strong>1,5 y 2,0 bares</strong> en el manómetro integrado.</li>
+        <li><strong>3. Prueba de presión 30 minutos:</strong> seca todas las espigas de 10 mm y latón con papel absorbente y espera 30 min sin tocar nada. Si no arranca la bomba sola ni humedece el papel, el circuito presurizado es estanco.</li>
+        <li><strong>4. Prueba térmica y de desagüe:</strong> activa el Boiler (Jadeshay 25A) para verificar la válvula de alivio/purga y descarga varios litros simultáneos en fregadero + ducha comprobando pendiente, venteo del depósito 40L y estanqueidad de la llave de vaciado.</li>
+      </ul>
+    </div>
+  </section>
+
+  <script src="svg-utils.js"></script>
+  <script src="plumbing.js"></script>
+</body>
+</html>

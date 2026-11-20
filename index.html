@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Esquema Eléctrico Camper 12V — LiFePO4 300Ah + Solar 450W</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="toolbar">
+      <div class="brand">
+        <span class="brand-badge" id="brand-badge">12V DC</span>
+        <div>
+          <div class="brand-title" id="brand-title">Esquema Eléctrico Camper 12V</div>
+          <div class="brand-sub" id="brand-sub">LiFePO4 300Ah (M8) · Fentar 6 Vías (M5/M4) · Terminales de Anilla · Solar 450W</div>
+        </div>
+      </div>
+
+      <div class="toolbar-controls">
+        <div class="btn-group scheme-switcher" aria-label="Seleccionar esquema">
+          <button class="btn active" id="scheme-electric" data-scheme="electric" title="Ver esquema eléctrico 12V">⚡ Eléctrico 12V</button>
+          <button class="btn" id="scheme-plumbing" data-scheme="plumbing" title="Ver esquema de fontanería Sprinter L2H2">💧 Fontanería</button>
+        </div>
+
+        <div class="btn-group" id="filter-group" aria-label="Filtro de circuitos">
+          <button class="btn active" id="filter-all" data-filter="all" title="Mostrar todos los tramos">Todo</button>
+          <button class="btn" id="filter-pos" data-filter="pos" title="Resaltar cables positivos (+)">Solo (+) Rojo</button>
+          <button class="btn" id="filter-neg" data-filter="neg" title="Resaltar cables negativos (-)">Solo (-) Negro</button>
+        </div>
+
+        <div class="btn-group" aria-label="Controles de zoom">
+          <button class="btn" id="zoom-out" title="Alejar (-)">−</button>
+          <span class="zoom-readout" id="zoom-readout">100%</span>
+          <button class="btn" id="zoom-in" title="Acercar (+)">+</button>
+          <button class="btn" id="zoom-fit" title="Ajustar a pantalla">Ajustar</button>
+          <button class="btn" id="clear-selection" title="Limpiar selección" style="display: none;">✕ Limpiar</button>
+        </div>
+
+        <button class="btn" id="toggle-drawer" title="Ver tabla de resumen">Tabla Resumen</button>
+        <button class="btn" id="toggle-bom" title="Ver lista de materiales y especificaciones">Materiales y Coste</button>
+        <button class="btn btn-primary" id="export-svg" title="Descargar esquema vectorial SVG">⬇ SVG</button>
+        <button class="btn btn-emerald" id="export-png" title="Descargar imagen PNG de alta resolución">⬇ PNG HD</button>
+        <a class="btn btn-primary" id="export-pdf" href="esquema-electrico-camper-12v.pdf" target="_blank" style="text-decoration: none;" title="Abrir dossier completo en PDF para imprimir">⬇ PDF</a>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <div class="viewport" id="viewport">
+        <svg id="diagram-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2360 1380" preserveAspectRatio="xMidYMid meet"></svg>
+
+        <div class="status-pill" id="status-pill">
+          <span class="legend-chip" id="legend-chip-1"><span class="swatch pos"></span> Positivo (+)</span>
+          <span class="legend-chip" id="legend-chip-2"><span class="swatch neg"></span> Negativo (-) / Masa</span>
+          <span class="legend-chip" id="legend-chip-3"><span class="ring-swatch"></span> Terminal de Anilla</span>
+          <span id="selection-info">Rueda del ratón: Zoom · Arrastrar: Mover · Clic en componente/cable: Resaltar tramo</span>
+        </div>
+      </div>
+
+      <aside class="drawer collapsed" id="summary-drawer">
+        <div class="drawer-header">
+          <h2 id="drawer-title">Resumen de Protecciones y Secciones</h2>
+          <button class="btn" id="close-drawer">✕</button>
+        </div>
+        <div class="drawer-tabs">
+          <button class="tab-btn active" id="tab-circuits" data-tab="circuits">Tramos y Fusibles</button>
+          <button class="tab-btn" id="tab-bom" data-tab="bom">Materiales, Anillas y Coste</button>
+        </div>
+        <div class="drawer-body" id="drawer-body"></div>
+      </aside>
+    </main>
+  </div>
+
+  <script src="svg-utils.js"></script>
+  <script src="plumbing.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
