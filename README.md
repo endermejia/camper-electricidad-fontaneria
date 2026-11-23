@@ -38,8 +38,8 @@ Proyecto interactivo (`HTML` + `SVG`) y dossiers imprimibles en PDF para diseña
 
 ### Circuitos hidráulicos y decisiones clave
 1. **Agua limpia y llenado (`Depósito Varile`):**
-   - Llenado por gravedad desde bocana exterior con manguera espiral **`Ø 40 mm`** (abrazaderas inox `40–60 mm`) y pasamuros en codo.
-   - Respiradero superior **`Ø 10 mm`** en **cuello de cisne alto** por encima del tapón exterior bajando hacia los bajos con rejilla anti-insectos.
+   - Llenado por gravedad desde bocana exterior doble (entrada + aireador integrado) con manguera espiral **`Ø 40 mm`** (abrazaderas inox `40–60 mm`) y pasamuros en codo.
+   - Respiradero superior **`Ø 10 mm`** desde el pasamuros superior del depósito conectado de vuelta al **aireador integrado de la propia bocana** en ascenso continuo (sin bolsas "U" ni perforación adicional en el suelo).
    - Aspiración inferior **`3/4"M → 10 mm`** → **llave de paso de bola** → **prefiltro transparente de malla** antes de la bomba.
 2. **Sistema de presión y regulación (orden crítico):**
    - **Bomba VEVOR (`60 PSI / ~4 bar`, `96W`)** sobre silentblocks → **Vaso de expansión Fiamma A20** (siempre en el lado de alta presión a la salida inmediata de la bomba) → **Reductor de presión `1/2"` con manómetro y filtro de malla** calibrado entre **`1,5 y 2,0 bar`**.

@@ -7,8 +7,8 @@ const PLUMBING_SUMMARY_DATA = [
   {
     group: '1. Agua Limpia y Captación (Depósito Varile)',
     rows: [
-      { tramo: '1. Bocana exterior → Pasamuros codo Varile', gauge: 'Ø 40 mm espiral', prot: '2× Abr. Inox 40–60 mm · Polímero MS en chapa', target: 'p-fill' },
-      { tramo: '2. Pasamuros superior Varile → Venteo bajos', gauge: 'Ø 10 mm flexible', prot: 'Cuello de cisne alto (> bocana) + rejilla anti-insectos', target: 'p-vent' },
+      { tramo: '1. Bocana exterior (entrada) → Pasamuros codo Varile', gauge: 'Ø 40 mm espiral', prot: '2× Abr. Inox 40–60 mm · Polímero MS en chapa', target: 'p-fill' },
+      { tramo: '2. Pasamuros sup. Varile → Aireador integrado bocana', gauge: 'Ø 10 mm flexible', prot: 'Respiradero en la misma bocana · Subida sin bolsas ("U") · Abr. W4', target: 'p-vent' },
       { tramo: '3. Salida inferior 3/4"M → Llave de bola → Prefiltro', gauge: 'Ø 10 mm azul', prot: 'Adaptador 3/4"M-10mm + Teflón + Abr. W4 10–16 mm', target: 'p-suction' },
     ],
   },
@@ -57,7 +57,7 @@ const PLUMBING_BOM_DATA = [
     group: '2. Mangueras y Tubería por Diámetros',
     rows: [
       { item: 'Manguera espiral alimentaria Ø 40 mm (bocana exterior → codo depósito Varile)', qty: '~1–1,5 m', cost: 'Ø 40 mm' },
-      { item: 'Manguera flexible alimentaria AZUL Ø 10 mm (venteo, aspiración, presión y fría)', qty: '~10–15 m', cost: 'Ø 10 mm' },
+      { item: 'Manguera flexible alimentaria AZUL Ø 10 mm (respiradero a bocana, aspiración, presión y fría)', qty: '~10–15 m', cost: 'Ø 10 mm' },
       { item: 'Manguera flexible alimentaria ROJA Ø 10 mm alta temp. (salida Boiler → grifos)', qty: '~6–10 m', cost: 'Ø 10 mm ACS' },
       { item: 'Manguera corrugada flexible Ø 25 mm interior liso (ducha/fregadero → grises 40L)', qty: '~4–6 m', cost: 'Ø 25 mm' },
     ],
@@ -65,7 +65,7 @@ const PLUMBING_BOM_DATA = [
   {
     group: '3. Racores, Válvulas, Pasamuros y Tes',
     rows: [
-      { item: 'Pasamuros codo 40 mm (llenado) + pasamuros sup. 10 mm (venteo Varile)', qty: '2 uds', cost: '40 / 10 mm' },
+      { item: 'Pasamuros codo 40 mm (llenado) + pasamuros sup. 10 mm (respiradero Varile → bocana)', qty: '2 uds', cost: '40 / 10 mm' },
       { item: 'Adaptador rosca macho 3/4" → espiga 10 mm + llave paso bola doble espiga 10 mm', qty: '1 + 1 ud', cost: 'Aspiración' },
       { item: 'Prefiltro transparente de malla 10 mm (entrada bomba) + válvula alivio/purga boiler', qty: '1 + 1 ud', cost: 'Protección' },
       { item: 'Racores latón rosca hembra 1/2" a espiga 10 mm (Boiler ×2 + Reductor ×2)', qty: '4 uds', cost: 'Latón 1/2"→10' },
@@ -128,7 +128,7 @@ function buildPlumbingDiagram() {
   // =========================================================================
   drawZone(zonesLayer, {
     x: 24, y: 78, w: 540, h: 1268,
-    title: '1. AGUA LIMPIA, LLENADO Y VENTEO',
+    title: '1. AGUA LIMPIA, LLENADO Y RESPIRADERO',
     color: '#0369a1',
     fill: 'rgba(224, 242, 254, 0.35)',
     border: '#38bdf8',
@@ -156,93 +156,109 @@ function buildPlumbingDiagram() {
   });
 
   // =========================================================================
-  // ZONA 1: BOCANA, DEPÓSITO VARILE, VENTEO Y ASPIRACIÓN
+  // ZONA 1: BOCANA DOBLE (ENTRADA + AIREADOR), DEPÓSITO VARILE Y ASPIRACIÓN
   // =========================================================================
   const bocanaCard = drawComponentCard(compsLayer, {
-    x: 48, y: 125, w: 220, h: 130,
-    title: 'Bocana Exterior Llenado',
-    subtitle: 'Gravedad · Tapón con llave',
-    subtitleY: 184,
+    x: 74, y: 118, w: 440, h: 146,
+    title: 'Bocana Exterior (Llenado + Aireador)',
+    subtitle: 'Tapón con llave · Entrada agua + respiradero integrados',
+    subtitleY: 174,
     accent: '#0369a1',
-    badges: ['Ø 40 mm', 'Sellado MS Polímero'],
-    circuit: 'p-fill',
+    badges: ['Entrada Ø 40 mm', 'Aireador Ø 10 mm', 'Sellado MS'],
+    circuit: 'p-fill p-vent',
   });
-  textEl('Salida trasera →', { x: 256, y: 204, 'text-anchor': 'end', 'font-size': 9.8, 'font-weight': 700, fill: '#0369a1' }, bocanaCard);
+  textEl('↓ Toma llenado Ø 40 mm', { x: 172, y: 212, 'text-anchor': 'middle', 'font-size': 10, 'font-weight': 800, fill: '#0369a1' }, bocanaCard);
+  textEl('↑ Aireador integrado Ø 10 mm', { x: 416, y: 212, 'text-anchor': 'middle', 'font-size': 10, 'font-weight': 800, fill: '#0f766e' }, bocanaCard);
 
-  // Tubería Ø 40 mm espiral Bocana -> Depósito Varile
-  drawWire(wiresLayer, [[268, 190], [308, 190], [308, 286], [140, 286], [140, 340]], {
+  // Tubería Ø 40 mm espiral: Bocana (entrada) -> Depósito Varile
+  drawWire(wiresLayer, [[172, 264], [172, 384]], {
     polarity: 'clean',
     gauge: 'Ø 40 mm espiral',
-    labelPos: [220, 286],
+    labelPos: [172, 324],
     circuit: 'p-fill',
   });
-  textEl('2× Abr. Inox 40–60 mm · Sin contrapendiente', { x: 156, y: 316, 'text-anchor': 'start', 'font-size': 9.4, 'font-weight': 700, fill: '#0369a1' }, wiresLayer);
+  textEl('↓ Gravedad · Sin bolsa', { x: 186, y: 292, 'text-anchor': 'start', 'font-size': 9.4, 'font-weight': 700, fill: '#0369a1' }, wiresLayer);
+  textEl('2× Abr. Inox 40–60 mm', { x: 186, y: 360, 'text-anchor': 'start', 'font-size': 9.4, 'font-weight': 700, fill: '#0369a1' }, wiresLayer);
+
+  // Respiradero Ø 10 mm: Pasamuros superior Varile -> Aireador integrado en la misma bocana
+  drawWire(wiresLayer, [[416, 384], [416, 264]], {
+    polarity: 'vent',
+    gauge: 'Ø 10 mm',
+    labelPos: [416, 324],
+    circuit: 'p-vent',
+  });
+  textEl('↑ Retorno aire', { x: 402, y: 292, 'text-anchor': 'end', 'font-size': 9.4, 'font-weight': 700, fill: '#0f766e' }, wiresLayer);
+  textEl('Abr. W4 · Sin "U"', { x: 402, y: 360, 'text-anchor': 'end', 'font-size': 9.4, 'font-weight': 700, fill: '#0f766e' }, wiresLayer);
 
   // Depósito Varile de polietileno
   const varileCard = drawComponentCard(compsLayer, {
-    x: 56, y: 340, w: 400, h: 290,
+    x: 74, y: 384, w: 440, h: 266,
     title: 'Depósito Agua Limpia Varile',
     subtitle: 'Polietileno alimentario · Sujeción firme chasis',
-    subtitleY: 392,
+    subtitleY: 434,
     accent: '#0284c7',
-    badges: ['Codo 40 mm', 'Venteo 10 mm', 'Toma 3/4"M'],
+    badges: ['Codo 40 mm', 'Respiradero 10 mm', 'Toma 3/4"M'],
     circuit: 'p-fill p-vent p-suction',
   });
   // Gráfico agua interior Varile
-  el('rect', { x: 82, y: 410, width: 348, height: 156, rx: 10, fill: '#e0f2fe', stroke: '#38bdf8', 'stroke-width': 1.5 }, varileCard);
+  el('rect', { x: 98, y: 450, width: 392, height: 150, rx: 10, fill: '#e0f2fe', stroke: '#38bdf8', 'stroke-width': 1.5 }, varileCard);
   el('path', {
-    d: 'M 82 470 Q 140 456 198 470 T 314 470 T 430 470 L 430 566 L 82 566 Z',
+    d: 'M 98 506 Q 163 492 228 506 T 359 506 T 490 506 L 490 600 L 98 600 Z',
     fill: 'rgba(2, 132, 199, 0.25)',
   }, varileCard);
-  textEl('Pasamuros codo 40 mm ↑', { x: 140, y: 432, 'text-anchor': 'middle', 'font-size': 10, 'font-weight': 800, fill: '#0369a1' }, varileCard);
-  textEl('Pasamuros sup. 10 mm ↑', { x: 374, y: 432, 'text-anchor': 'middle', 'font-size': 10, 'font-weight': 800, fill: '#0f766e' }, varileCard);
-  textEl('Salida inf. 3/4"M → espiga 10 mm (Teflón) ↓', { x: 256, y: 552, 'text-anchor': 'middle', 'font-size': 10.2, 'font-weight': 800, fill: '#075985' }, varileCard);
-
-  // Venteo Ø 10 mm cuello alto hacia los bajos
-  drawWire(wiresLayer, [[380, 340], [380, 145], [508, 145], [508, 1185]], {
-    polarity: 'vent',
-    gauge: 'Ø 10 mm',
-    labelPos: [444, 145],
-    circuit: 'p-vent',
-  });
-  textEl('Cuello alto (> bocana)', { x: 444, y: 126, 'text-anchor': 'middle', 'font-size': 9.4, 'font-weight': 700, fill: '#0f766e' }, wiresLayer);
-  drawProtectionBox(compsLayer, {
-    x: 422, y: 1076, w: 126, h: 52,
-    title: 'Pasachapas suelo',
-    amp: 'Goma + MS',
-    kind: 'trap',
-    circuit: 'p-vent',
-  });
-  drawProtectionBox(compsLayer, {
-    x: 422, y: 1185, w: 126, h: 58,
-    title: 'Venteo Bajos',
-    amp: 'Rejilla insectos',
-    kind: 'filter',
-    circuit: 'p-vent',
-  });
+  textEl('Pasamuros codo 40 mm ↑', { x: 172, y: 472, 'text-anchor': 'middle', 'font-size': 10, 'font-weight': 800, fill: '#0369a1' }, varileCard);
+  textEl('Pasamuros sup. 10 mm ↑', { x: 416, y: 472, 'text-anchor': 'middle', 'font-size': 10, 'font-weight': 800, fill: '#0f766e' }, varileCard);
+  textEl('Salida inf. 3/4"M → espiga 10 mm (Teflón) ↓', { x: 294, y: 586, 'text-anchor': 'middle', 'font-size': 10.2, 'font-weight': 800, fill: '#075985' }, varileCard);
 
   // Aspiración: Salida Varile -> Llave de bola 10 mm -> Prefiltro -> Bomba
-  drawWire(wiresLayer, [[195, 630], [195, 908], [626, 908]], {
+  drawWire(wiresLayer, [[294, 650], [294, 908], [626, 908]], {
     polarity: 'clean',
     gauge: 'Ø 10 mm',
-    labelPos: [396, 908],
+    labelPos: [458, 908],
     circuit: 'p-suction',
-    hop: { segmentIndex: 2, dir: 'horizontal', x: 508 },
   });
   drawProtectionBox(compsLayer, {
-    x: 100, y: 678, w: 190, h: 66,
+    x: 199, y: 686, w: 190, h: 66,
     title: 'Llave Bola 10 mm',
     amp: 'Aislamiento depósito',
     kind: 'valve',
     circuit: 'p-suction',
   });
   drawProtectionBox(compsLayer, {
-    x: 100, y: 786, w: 190, h: 66,
+    x: 199, y: 788, w: 190, h: 66,
     title: 'Prefiltro Malla 10 mm',
     amp: 'Protege diafragma',
     sub: 'Abr. W4 (10–16 mm)',
     kind: 'filter',
     circuit: 'p-suction',
+  });
+
+  // Cuadro Notas Llenado, Aireador Integrado y Aspiración (abajo Zona 1)
+  const fillNotesG = el('g', { class: 'comp-item', 'data-circuit': 'p-fill p-vent p-suction' }, compsLayer);
+  el('rect', { x: 56, y: 1030, width: 476, height: 274, rx: 12, fill: '#ffffff', stroke: '#0284c7', 'stroke-width': 2 }, fillNotesG);
+  el('rect', { x: 56, y: 1030, width: 476, height: 32, rx: 10, fill: '#0369a1' }, fillNotesG);
+  textEl('BOCANA DOBLE (LLENADO + AIREADOR) Y ASPIRACIÓN', {
+    x: 294, y: 1051, 'text-anchor': 'middle', 'font-size': 10.8, 'font-weight': 800, fill: '#ffffff',
+  }, fillNotesG);
+  [
+    '1. Respiradero integrado en la misma bocana:',
+    '   El tubo Ø 10 mm sube del pasamuros superior del Varile directo',
+    '   al aireador de la bocana (no requiere taladrar el suelo).',
+    '2. Trazado continuo sin bolsas ("U") ni contrapendientes:',
+    '   Caída continua en Ø 40 mm y subida continua en Ø 10 mm para',
+    '   que el aire salga libremente al repostar sin escupir agua.',
+    '3. Sellado y fijación mecánica:',
+    '   Bocana sellada a chapa con polímero MS · Abr. Inox 40–60 y W4.',
+    '   Salida inferior 3/4"M con Teflón/Loctite 55 sin forzar el PE.',
+  ].forEach((txt, idx) => {
+    const isHdr = txt.startsWith('1.') || txt.startsWith('2.') || txt.startsWith('3.');
+    textEl(txt, {
+      x: 74,
+      y: 1084 + idx * 24,
+      'font-size': isHdr ? 10.4 : 9.8,
+      'font-weight': isHdr ? 800 : 600,
+      fill: isHdr ? '#075985' : '#334155',
+    }, fillNotesG);
   });
 
   // =========================================================================
@@ -577,7 +593,7 @@ function buildPlumbingDiagram() {
 
   // Puntos de conexión clave (racores / uniones)
   [
-    [268, 190, 'clean'], [140, 340, 'clean'], [380, 340, 'vent'], [195, 630, 'clean'],
+    [172, 264, 'clean'], [416, 264, 'vent'], [172, 384, 'clean'], [416, 384, 'vent'], [294, 650, 'clean'],
     [626, 908, 'clean'], [766, 805, 'clean'], [766, 660, 'clean'], [766, 485, 'clean'], [766, 345, 'clean'], [906, 210, 'clean'],
     [1300, 650, 'clean'], [1425, 490, 'hot'],
     [1850, 210, 'clean'], [1850, 250, 'hot'], [1850, 515, 'clean'], [1850, 555, 'hot'],
