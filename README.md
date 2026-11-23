@@ -44,7 +44,7 @@ Proyecto interactivo (`HTML` + `SVG`) y dossiers imprimibles en PDF para diseña
 2. **Sistema de presión y regulación (orden crítico):**
    - **Bomba VEVOR (`60 PSI / ~4 bar`, `96W`)** sobre silentblocks → **Vaso de expansión Fiamma A20** (siempre en el lado de alta presión a la salida inmediata de la bomba) → **Reductor de presión `1/2"` con manómetro y filtro de malla** calibrado entre **`1,5 y 2,0 bar`**.
 3. **ACS (`Boiler Carbest CozyWater 10L`) y entorno térmico (`Nordkapp Air`):**
-   - Racores de latón `1/2"H → 10 mm` con teflón/Loctite 55, **válvula de alivio/purga (`2,5–3 bar`)** por dilatación térmica y vaciado anti-heladas.
+   - Racores de latón `1/2"H → 10 mm` con teflón/Loctite 55, **válvula antirretorno `Ø 10 mm`** (flecha hacia el boiler, siempre aguas arriba) + **válvula de alivio/purga (`2,5–3 bar`)** por dilatación térmica y vaciado anti-heladas.
    - Distribución con **Tes `Ø 10 mm`** y manguera alimentaria **azul (fría)** / **roja (caliente)** + abrazaderas **inox W4 (`10–16 mm`)**.
    - Control de grifería: al usar bomba VEVOR por presostato, **el microinterruptor del grifo queda sin conectar** (control desde interruptor de pared Vía 5).
 4. **Aguas grises (`Ø 25 mm` → Depósito extraplano `40 L` `99×40×10 cm`):**

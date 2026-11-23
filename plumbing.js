@@ -24,7 +24,7 @@ const PLUMBING_SUMMARY_DATA = [
   {
     group: '3. Boiler Carbest 10L y Distribución Consumos',
     rows: [
-      { tramo: '8. Te 10 mm → Purga/Alivio → Boiler Carbest 10L IN', gauge: 'Ø 10 mm azul', prot: 'Latón 1/2"H-10mm (abajo) + Válvula alivio/purga 2,5–3 bar', target: 'p-boiler' },
+      { tramo: '8. Te 10 mm → Antirretorno → Purga/Alivio → Boiler IN', gauge: 'Ø 10 mm azul', prot: 'Antirretorno 10 mm (flecha ↓ boiler) antes de alivio 3 bar + 1/2"H', target: 'p-boiler' },
       { tramo: '9. Boiler Carbest 10L OUT (sup.) → Te 10 mm caliente', gauge: 'Ø 10 mm roja', prot: 'Latón 1/2"H-10mm (arriba) · Manguera ACS · Jadeshay 25A', target: 'p-boiler' },
       { tramo: '10. Tes 10 mm → Fregadero y Ducha (gatillo + monomando)', gauge: 'Ø 10 mm azul/roja', prot: 'Abr. W4 10–16 mm · Microinterruptor grifo SIN conectar', target: 'p-taps' },
     ],
@@ -67,7 +67,7 @@ const PLUMBING_BOM_DATA = [
     rows: [
       { item: 'Pasamuros codo 40 mm (llenado) + pasamuros sup. 10 mm (respiradero Varile → bocana)', qty: '2 uds', cost: '40 / 10 mm' },
       { item: 'Adaptador rosca macho 3/4" → espiga 10 mm + llave paso bola doble espiga 10 mm', qty: '1 + 1 ud', cost: 'Aspiración' },
-      { item: 'Prefiltro transparente de malla 10 mm (entrada bomba) + válvula alivio/purga boiler', qty: '1 + 1 ud', cost: 'Protección' },
+      { item: 'Prefiltro transparente de malla 10 mm (bomba) + válvula antirretorno 10 mm + alivio/purga boiler', qty: '3 uds', cost: 'Protección' },
       { item: 'Racores latón rosca hembra 1/2" a espiga 10 mm (Boiler ×2 + Reductor ×2)', qty: '4 uds', cost: 'Latón 1/2"→10' },
       { item: 'Tes distribución Ø 10 mm (1 fría boiler + 1 fría grifos + 1 caliente grifos)', qty: '3 uds', cost: 'Ø 10 mm' },
       { item: 'Desagüe codo escalonado ducha + 2× sifones secos/compactos + pieza "Y" (o "T") Ø 25 mm + pasamuros 25 mm', qty: '1 kit', cost: 'Ø 25 mm' },
@@ -383,21 +383,28 @@ function buildPlumbingDiagram() {
     circuit: 'p-taps',
   });
 
-  // Bajada Te #1 Fría -> Purga/Alivio -> Boiler IN (inferior)
+  // Bajada Te #1 Fría -> Antirretorno 10 mm -> Purga/Alivio -> Boiler IN (inferior)
   drawWire(wiresLayer, [[1246, 210], [1246, 650], [1300, 650]], {
     polarity: 'clean',
     gauge: 'Ø 10 mm Azul',
-    labelPos: [1246, 310],
+    labelPos: [1246, 254],
     circuit: 'p-boiler',
   });
   drawProtectionBox(compsLayer, {
-    x: 1180, y: 392, w: 132, h: 64,
+    x: 1176, y: 292, w: 140, h: 64,
+    title: 'Antirretorno 10 mm',
+    amp: 'Flecha ↓ Boiler',
+    kind: 'valve',
+    circuit: 'p-boiler',
+  });
+  drawProtectionBox(compsLayer, {
+    x: 1176, y: 400, w: 140, h: 64,
     title: 'Purga / Alivio',
     amp: '2,5–3 bar + Vac.',
     kind: 'valve',
     circuit: 'p-boiler',
   });
-  drawWire(wiresLayer, [[1246, 456], [1202, 456], [1202, 855]], {
+  drawWire(wiresLayer, [[1246, 464], [1202, 464], [1202, 855]], {
     polarity: 'vent',
     gauge: 'Ø 10 mm',
     labelPos: [1202, 745],
