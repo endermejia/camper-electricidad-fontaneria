@@ -127,9 +127,9 @@ const SUMMARY_DATA = [
   {
     group: 'Zona 230V / Cocina fija',
     rows: [
-      { tramo: 'Salida inversor → Cuadro 230V', gauge: '3×2,5 mm²', prot: 'Diferencial bipolar 40A / 30mA + magnetotérmico bipolar 16A', target: 'inverter-ac' },
-      { tramo: 'Magnetotérmico 16A → Schuko → Placa inducción fija 2 fuegos', gauge: '3×2,5 mm²', prot: 'Fase marrón/negro · Neutro azul claro · Tierra verde-amarillo', target: 'kitchen-ac' },
-      { tramo: 'Tierra independiente 230V → Tierra Chasis', gauge: '2,5–4 mm²', prot: 'Carcasa inversor + cuadro + Schuko · tornillo independiente', target: 'earth-230' },
+      { tramo: 'Salida AC Inversor (Clavija Schuko macho) → Entrada sup. Cuadro 230V (Caja DIN 2 mód.)', gauge: '3×2,5 mm²', prot: 'RCBO 2-en-1 SAFEMORE 16A Curva C · 30mA · Clase A · 1P+N · 6kA (1/2: F, N: Neutro)', target: 'inverter-ac' },
+      { tramo: 'Salida inf. RCBO (F + N) → Base Schuko fija 230V → Placa inducción 2 fuegos (2.990W)', gauge: '3×2,5 mm²', prot: 'Empotrable horizontal en encimera 40 cm · Corrugado + punteras crimpadas', target: 'kitchen-ac' },
+      { tramo: 'Tierra 230V independiente (PE): carcasa inversor + regleta/Wago caja DIN + Schuko → chasis', gauge: '2,5–4 mm²', prot: 'Verde-amarillo (sin pasar por RCBO) · Ojal a tornillo chasis independiente de 12V', target: 'earth-230' },
     ],
   },
 ];
@@ -193,12 +193,15 @@ const BOM_DATA = [
       { item: 'Inversor Onda Pura 2.000W (12V → 230V)', qty: '1 ud', spec: 'Nuevo', cost: 'Pendiente' },
       { item: 'Portafusibles + Fusible ANL/MEGA 300A', qty: '1 kit', spec: 'Nuevo', cost: 'Pendiente' },
       { item: 'Cable DC 70 mm² (o 2×35 mm² en paralelo) + ojales M8', qty: '2 líneas', spec: 'Nuevo', cost: 'Pendiente' },
-      { item: 'Cuadro 230V: Diferencial 40A/30mA + Magnetotérmico bipolar 16A', qty: '1 ud', spec: 'Nuevo', cost: 'Pendiente' },
-      { item: 'Manguera flexible 3×2,5 mm²', qty: 'Según trazado', spec: 'Nuevo', cost: 'Pendiente' },
-      { item: 'Base Schuko fija 230V', qty: '1 ud', spec: 'Nuevo', cost: 'Pendiente' },
-      { item: 'Cable tierra verde-amarillo 2,5–4 mm²', qty: 'Según trazado', spec: 'Nuevo', cost: 'Pendiente' },
-      { item: 'Placa de inducción empotrable fija 2 fuegos', qty: '1 ud', spec: 'Nuevo', cost: 'Pendiente' },
-      { item: 'Tubo corrugado para todo el cableado 12V y 230V', qty: 'Según trazado', spec: 'Nuevo', cost: 'Pendiente' },
+      { item: 'Caja DIN superficie 2 módulos (Cuadro 230V)', qty: '1 ud', spec: 'Nuevo', cost: 'Pendiente' },
+      { item: 'RCBO combinado 2-en-1 SAFEMORE 16A Curva C, 30mA, Clase A, 1P+N, 6kA', qty: '1 ud', spec: 'Nuevo', cost: 'Pendiente' },
+      { item: 'Manguera flexible 3×2,5 mm² (en tubo corrugado)', qty: 'Según trazado', spec: 'Nuevo', cost: 'Pendiente' },
+      { item: 'Clavija Schuko macho (salida AC inversor)', qty: '1 ud', spec: 'Nuevo', cost: 'Pendiente' },
+      { item: 'Base de enchufe Schuko fija 230V', qty: '1 ud', spec: 'Nuevo', cost: 'Pendiente' },
+      { item: 'Regleta / Wago para tierra PE en caja DIN (sin pasar por RCBO)', qty: '1 ud', spec: 'Nuevo', cost: 'Pendiente' },
+      { item: 'Cable tierra verde-amarillo (2,5–4 mm²) + terminal de ojal chasis', qty: 'Según trazado', spec: 'Nuevo', cost: 'Pendiente' },
+      { item: 'Placa de inducción empotrable fija 2 fuegos (2.990W, horizontal encimera 40 cm)', qty: '1 ud', spec: 'Nuevo', cost: 'Pendiente' },
+      { item: 'Tubo corrugado para todo el cableado (12V y 230V) + punteras crimpadas', qty: 'Según trazado', spec: 'Nuevo', cost: 'Pendiente' },
     ],
   },
 ];
@@ -540,7 +543,7 @@ function buildDiagram() {
   // =========================================================================
 
   // 2.1 Busbar Positivo (+) 300A
-  const busPosG = el('g', { class: 'comp-item', 'data-circuit': 'booster-busbar mppt-busbar aux-battery boiler usb-panel fusebox-feed' }, compsLayer);
+  const busPosG = el('g', { class: 'comp-item', 'data-circuit': 'booster-busbar mppt-busbar aux-battery boiler usb-panel fusebox-feed inverter-dc' }, compsLayer);
   el('rect', { x: 990, y: 150, width: 280, height: 196, rx: 12, fill: '#fff1f2', stroke: '#dc2626', 'stroke-width': 2.6 }, busPosG);
   el('rect', { x: 990, y: 150, width: 280, height: 34, rx: 10, fill: '#dc2626' }, busPosG);
   textEl('BUSBAR POSITIVO (+) 300A', { x: 1130, y: 172, 'text-anchor': 'middle', 'font-size': 13, 'font-weight': 800, fill: '#ffffff' }, busPosG);
@@ -600,7 +603,7 @@ function buildDiagram() {
   });
 
   // 2.4 Busbar Negativo (-) 300A
-  const busNegG = el('g', { class: 'comp-item', 'data-circuit': 'booster-busbar mppt-busbar aux-battery chassis-ground boiler usb-panel fusebox-feed' }, compsLayer);
+  const busNegG = el('g', { class: 'comp-item', 'data-circuit': 'booster-busbar mppt-busbar aux-battery chassis-ground boiler usb-panel fusebox-feed inverter-dc' }, compsLayer);
   el('rect', { x: 990, y: 900, width: 280, height: 176, rx: 12, fill: '#f1f5f9', stroke: '#0f172a', 'stroke-width': 2.6 }, busNegG);
   el('rect', { x: 990, y: 900, width: 280, height: 34, rx: 10, fill: '#0f172a' }, busNegG);
   textEl('BUSBAR NEGATIVO (-) 300A', { x: 1130, y: 922, 'text-anchor': 'middle', 'font-size': 13, 'font-weight': 800, fill: '#ffffff' }, busNegG);
@@ -1040,70 +1043,273 @@ function buildDiagram() {
   // =========================================================================
   // ZONA 4: 230V / COCINA FIJA
   // =========================================================================
-  // Alimentación DC dedicada desde los Busbars existentes al inversor.
-  drawWire(wiresLayer, [[1270, 326], [2310, 326], [2310, 505], [2400, 505]], {
-    polarity: 'pos', gauge: '70 mm² · M8', labelPos: [2110, 336], circuit: 'inverter-dc',
+
+  // 4.1 Alimentación DC 12V del Inversor desde Busbars existentes (corredor inferior limpio)
+  // Busbar (+) -> corredor libre x=1354 / x=1296 -> carril inferior y=1308 -> ANL/MEGA 300A -> Inversor (+)
+  drawWire(wiresLayer, [[1270, 296], [1354, 296], [1354, 1020], [1296, 1020], [1296, 1308], [2448, 1308], [2448, 420]], {
+    polarity: 'pos',
+    gauge: '70 mm² (o 2×35) · M8',
+    labelPos: [1880, 1308],
+    circuit: 'inverter-dc',
+    hops: [
+      { segmentIndex: 2, dir: 'vertical', y: 456 },
+      { segmentIndex: 2, dir: 'vertical', y: 945 },
+      { segmentIndex: 2, dir: 'vertical', y: 995 },
+      { segmentIndex: 4, dir: 'vertical', y: 1045 },
+    ],
   });
+  drawGaugePill(wiresLayer, 2448, 504, '70 mm² · M8', 'pos');
   drawProtectionBox(compsLayer, {
-    x: 2140, y: 326, w: 150, h: 68,
-    title: 'ANL / MEGA', amp: '300A', sub: 'Portafusibles DC', kind: 'fuse', circuit: 'inverter-dc',
-  });
-  drawWire(wiresLayer, [[1270, 1045], [2325, 1045], [2325, 575], [2400, 575]], {
-    polarity: 'neg', gauge: '70 mm² · M8', labelPos: [2110, 1104], circuit: 'inverter-dc',
+    x: 2368, y: 585, w: 160, h: 68,
+    title: 'Portafus. ANL/MEGA',
+    amp: '300A · Ojales M8',
+    kind: 'fuse',
+    circuit: 'inverter-dc',
   });
 
+  // Inversor (-) -> carril inferior y=1336 -> Busbar Negativo (-) (sin cruces)
+  drawWire(wiresLayer, [[2554, 420], [2554, 1336], [1245, 1336], [1245, 1076]], {
+    polarity: 'neg',
+    gauge: '70 mm² (o 2×35) · M8',
+    labelPos: [1880, 1336],
+    circuit: 'inverter-dc',
+  });
+  drawGaugePill(wiresLayer, 2554, 720, '70 mm² · M8', 'neg');
+
+  // 4.2 Inversor 12V -> 230V Onda Pura 2.000W
   const inverterCard = drawComponentCard(compsLayer, {
-    x: 2400, y: 410, w: 300, h: 250,
-    title: 'INVERSOR ONDA PURA', subtitle: '12V DC → 230V AC · 2.000W', subtitleY: 494,
-    accent: '#7c3aed', badges: ['Entrada M8 · 70 mm²', 'Salida 230V'], circuit: 'inverter-dc inverter-ac earth-230',
+    x: 2384, y: 138, w: 340, h: 282,
+    title: 'INVERSOR ONDA PURA 2.000W',
+    subtitle: '12V DC → 230V AC · Onda Senoidal Pura',
+    subtitleY: 192,
+    accent: '#7c3aed',
+    badges: ['Entrada M8 · 70 mm²', 'Salida AC Schuko'],
+    circuit: 'inverter-dc inverter-ac earth-230',
   });
-  textEl('ENTRADA (+) 12V', { x: 2418, y: 535, 'font-size': 10.5, 'font-weight': 800, fill: '#b91c1c' }, inverterCard);
-  textEl('ENTRADA (-) 12V', { x: 2418, y: 575, 'font-size': 10.5, 'font-weight': 800, fill: '#0f172a' }, inverterCard);
-  textEl('SALIDA 230V AC', { x: 2680, y: 555, 'text-anchor': 'end', 'font-size': 10.5, 'font-weight': 800, fill: '#92400e' }, inverterCard);
-  textEl('PE carcasa', { x: 2550, y: 637, 'text-anchor': 'middle', 'font-size': 10, 'font-weight': 700, fill: '#15803d' }, inverterCard);
+  textEl('Salida AC 230V →', { x: 2710, y: 236, 'text-anchor': 'end', 'font-size': 10.5, 'font-weight': 800, fill: '#92400e' }, inverterCard);
+  textEl('Manguera 3×2,5 mm²', { x: 2710, y: 254, 'text-anchor': 'end', 'font-size': 9.4, 'font-weight': 700, fill: '#475569' }, inverterCard);
+  textEl('↓ IN (+) 12V', { x: 2448, y: 368, 'text-anchor': 'middle', 'font-size': 10, 'font-weight': 800, fill: '#b91c1c' }, inverterCard);
+  textEl('↓ IN (-) 12V', { x: 2554, y: 368, 'text-anchor': 'middle', 'font-size': 10, 'font-weight': 800, fill: '#0f172a' }, inverterCard);
+  textEl('↓ PE Carcasa', { x: 2662, y: 368, 'text-anchor': 'middle', 'font-size': 10, 'font-weight': 800, fill: '#15803d' }, inverterCard);
 
-  // Salida AC con fase, neutro y tierra REBT hacia el cuadro bipolar.
-  drawWire(wiresLayer, [[2700, 520], [2760, 520]], { polarity: 'phase', gauge: 'F 3×2,5 mm²', labelPos: [2730, 500], circuit: 'inverter-ac' });
-  drawWire(wiresLayer, [[2700, 575], [2760, 575]], { polarity: 'neutral', gauge: 'N 3×2,5 mm²', labelPos: [2730, 598], circuit: 'inverter-ac' });
-  drawWire(wiresLayer, [[2550, 660], [2550, 760], [2760, 760]], { polarity: 'earth', gauge: 'PE 2,5–4 mm²', labelPos: [2640, 784], circuit: 'earth-230' });
+  // Clavija Schuko Macho a la salida AC del Inversor
+  drawWire(wiresLayer, [[2724, 236], [2748, 236]], { polarity: 'phase', gauge: '2,5 mm²', circuit: 'inverter-ac' });
+  const plugG = el('g', { class: 'comp-item', 'data-circuit': 'inverter-ac earth-230' }, compsLayer);
+  el('rect', { x: 2748, y: 204, width: 96, height: 68, rx: 9, fill: '#ffffff', stroke: '#7c3aed', 'stroke-width': 2 }, plugG);
+  el('rect', { x: 2748, y: 204, width: 96, height: 22, rx: 7, fill: '#7c3aed' }, plugG);
+  textEl('CLAVIJA AC', { x: 2796, y: 219, 'text-anchor': 'middle', 'font-size': 9.4, 'font-weight': 800, fill: '#ffffff' }, plugG);
+  textEl('Schuko Macho', { x: 2796, y: 242, 'text-anchor': 'middle', 'font-size': 10, 'font-weight': 800, fill: '#0f172a' }, plugG);
+  textEl('3×2,5 mm²', { x: 2796, y: 259, 'text-anchor': 'middle', 'font-size': 9.4, 'font-weight': 700, fill: '#6d28d9' }, plugG);
 
+  // 4.3 Circuito AC 230V: Clavija Schuko -> Entrada SUPERIOR Cuadro 230V (RCBO 2-en-1)
+  // Fase (marrón/negro) -> Borne superior izquierdo (1/2)
+  drawWire(wiresLayer, [[2844, 218], [2860, 218], [2860, 114], [2962, 114], [2962, 226]], {
+    polarity: 'phase',
+    gauge: 'F 2,5 mm²',
+    labelPos: [2914, 114],
+    circuit: 'inverter-ac',
+  });
+  // Neutro (azul claro) -> Borne superior derecho (N)
+  drawWire(wiresLayer, [[2844, 238], [2874, 238], [2874, 144], [3082, 144], [3082, 226]], {
+    polarity: 'neutral',
+    gauge: 'N 2,5 mm²',
+    labelPos: [3022, 144],
+    circuit: 'inverter-ac',
+  });
+
+  // 4.4 Cuadro 230V (Caja de superficie carril DIN de 2 módulos + RCBO SAFEMORE 2-en-1 + Regleta/Wago PE)
   const acBox = el('g', { class: 'comp-item', 'data-circuit': 'inverter-ac earth-230' }, compsLayer);
-  el('rect', { x: 2760, y: 430, width: 250, height: 390, rx: 12, fill: '#ffffff', stroke: '#7c3aed', 'stroke-width': 2.2 }, acBox);
-  el('rect', { x: 2760, y: 430, width: 250, height: 38, rx: 10, fill: '#6d28d9' }, acBox);
-  textEl('CUADRO DE PROTECCIONES 230V', { x: 2885, y: 454, 'text-anchor': 'middle', 'font-size': 11, 'font-weight': 800, fill: '#ffffff' }, acBox);
-  textEl('Entrada bipolar F + N', { x: 2885, y: 490, 'text-anchor': 'middle', 'font-size': 10, 'font-weight': 700, fill: '#475569' }, acBox);
-  drawProtectionBox(compsLayer, { x: 2790, y: 505, w: 190, h: 88, title: 'Diferencial bipolar', amp: '40A / 30mA', kind: 'breaker', circuit: 'inverter-ac' });
-  drawProtectionBox(compsLayer, { x: 2790, y: 625, w: 190, h: 88, title: 'Magnetotérmico bipolar', amp: '16A · 2P', kind: 'breaker', circuit: 'inverter-ac' });
-  textEl('PE directo a borna de tierra', { x: 2885, y: 785, 'text-anchor': 'middle', 'font-size': 10, 'font-weight': 700, fill: '#15803d' }, acBox);
+  el('rect', { x: 2889, y: 179, width: 370, height: 334, rx: 12, fill: 'rgba(15, 23, 42, 0.07)' }, acBox);
+  el('rect', { x: 2886, y: 176, width: 370, height: 334, rx: 12, fill: '#ffffff', stroke: '#7c3aed', 'stroke-width': 2.2 }, acBox);
+  el('path', { d: 'M 2886 188 Q 2886 176 2898 176 L 3244 176 Q 3256 176 3256 188 L 3256 210 L 2886 210 Z', fill: '#6d28d9' }, acBox);
+  textEl('CUADRO 230V · CAJA SUPERFICIE DIN 2 MÓD.', {
+    x: 3071, y: 198, 'text-anchor': 'middle', 'font-size': 10.8, 'font-weight': 800, fill: '#ffffff',
+  }, acBox);
 
-  // Manguera 3x2,5 mm² hasta la toma fija y la placa empotrable.
-  drawWire(wiresLayer, [[3010, 670], [3070, 670]], { polarity: 'phase', gauge: 'F marrón/negro', labelPos: [3040, 650], circuit: 'kitchen-ac' });
-  drawWire(wiresLayer, [[3010, 700], [3070, 700]], { polarity: 'neutral', gauge: 'N azul claro', labelPos: [3040, 724], circuit: 'kitchen-ac' });
-  drawWire(wiresLayer, [[2885, 820], [2885, 900], [3070, 900]], { polarity: 'earth', gauge: 'PE verde-amarillo', labelPos: [2980, 924], circuit: 'earth-230 kitchen-ac' });
-  const schuko = el('g', { class: 'comp-item', 'data-circuit': 'kitchen-ac earth-230' }, compsLayer);
-  el('rect', { x: 3070, y: 610, width: 170, height: 150, rx: 10, fill: '#ffffff', stroke: '#92400e', 'stroke-width': 2 }, schuko);
-  textEl('BASE SCHUKO FIJA', { x: 3155, y: 640, 'text-anchor': 'middle', 'font-size': 11, 'font-weight': 800, fill: '#78350f' }, schuko);
-  el('circle', { cx: 3130, cy: 690, r: 12, fill: '#fef3c7', stroke: '#92400e', 'stroke-width': 2 }, schuko);
-  el('circle', { cx: 3180, cy: 690, r: 12, fill: '#fef3c7', stroke: '#92400e', 'stroke-width': 2 }, schuko);
-  textEl('230V · F/N/PE', { x: 3155, y: 730, 'text-anchor': 'middle', 'font-size': 10, 'font-weight': 700, fill: '#475569' }, schuko);
-  const hob = drawComponentCard(compsLayer, {
-    x: 3070, y: 970, w: 170, h: 190, title: 'PLACA INDUCCIÓN', subtitle: 'Fija · empotrable', subtitleY: 1035,
-    accent: '#92400e', badges: ['2 fuegos', 'Horizontal'], circuit: 'kitchen-ac',
+  // Carril DIN de fondo
+  el('rect', { x: 2896, y: 316, width: 350, height: 22, rx: 3, fill: '#e2e8f0', stroke: '#94a3b8', 'stroke-width': 1 }, acBox);
+  el('line', { x1: 2896, y1: 327, x2: 3246, y2: 327, stroke: '#64748b', 'stroke-width': 1, 'stroke-dasharray': '6,4' }, acBox);
+
+  // Dispositivo único combinado: RCBO 2-en-1 SAFEMORE (2 módulos: 1P + N)
+  const rcboG = el('g', { class: 'comp-item', 'data-circuit': 'inverter-ac' }, compsLayer);
+  el('rect', { x: 2902, y: 226, width: 240, height: 214, rx: 9, fill: '#fff7ed', stroke: '#ea580c', 'stroke-width': 2.2 }, rcboG);
+  el('line', { x1: 3022, y1: 226, x2: 3022, y2: 440, stroke: '#fed7aa', 'stroke-width': 1.5, 'stroke-dasharray': '4,3' }, rcboG);
+  // Entradas superiores 1/2 (Fase) y N (Neutro)
+  el('circle', { cx: 2962, cy: 238, r: 5.5, fill: '#92400e', stroke: '#ffffff', 'stroke-width': 1.5 }, rcboG);
+  el('circle', { cx: 3082, cy: 238, r: 5.5, fill: '#0284c7', stroke: '#ffffff', 'stroke-width': 1.5 }, rcboG);
+  textEl('IN (1/2) Fase', { x: 2962, y: 256, 'text-anchor': 'middle', 'font-size': 9.4, 'font-weight': 800, fill: '#92400e' }, rcboG);
+  textEl('IN (N) Neutro', { x: 3082, y: 256, 'text-anchor': 'middle', 'font-size': 9.4, 'font-weight': 800, fill: '#0284c7' }, rcboG);
+  // Cuerpo y etiqueta SAFEMORE
+  textEl('RCBO 2-en-1 · SAFEMORE', { x: 3022, y: 282, 'text-anchor': 'middle', 'font-size': 11, 'font-weight': 800, fill: '#9a3412' }, rcboG);
+  textEl('Magnetotérmico + Diferencial', { x: 3022, y: 298, 'text-anchor': 'middle', 'font-size': 9.4, 'font-weight': 700, fill: '#475569' }, rcboG);
+  el('rect', { x: 2918, y: 312, width: 208, height: 28, rx: 6, fill: '#ea580c' }, rcboG);
+  textEl('16A Curva C · 30mA · Clase A', {
+    x: 3022, y: 330, 'text-anchor': 'middle', 'font-size': 10.2, 'font-weight': 800, 'font-family': 'Consolas, monospace', fill: '#ffffff',
+  }, rcboG);
+  textEl('1P+N · 6kA · 2 módulos DIN', { x: 3022, y: 360, 'text-anchor': 'middle', 'font-size': 9.8, 'font-weight': 800, fill: '#0f172a' }, rcboG);
+  // Salidas inferiores 1/2 (Fase) y N (Neutro)
+  textEl('OUT (1/2) F ↓', { x: 2962, y: 410, 'text-anchor': 'middle', 'font-size': 9.4, 'font-weight': 800, fill: '#92400e' }, rcboG);
+  textEl('OUT (N) N ↓', { x: 3082, y: 410, 'text-anchor': 'middle', 'font-size': 9.4, 'font-weight': 800, fill: '#0284c7' }, rcboG);
+  el('circle', { cx: 2962, cy: 428, r: 5.5, fill: '#92400e', stroke: '#ffffff', 'stroke-width': 1.5 }, rcboG);
+  el('circle', { cx: 3082, cy: 428, r: 5.5, fill: '#0284c7', stroke: '#ffffff', 'stroke-width': 1.5 }, rcboG);
+
+  // Regleta / Wago de Tierra PE dentro de la Caja DIN (sin pasar por el RCBO)
+  const peWagoG = el('g', { class: 'comp-item', 'data-circuit': 'earth-230' }, compsLayer);
+  el('rect', { x: 3154, y: 248, width: 90, height: 176, rx: 8, fill: '#f0fdf4', stroke: '#16a34a', 'stroke-width': 2, 'stroke-dasharray': '5,3' }, peWagoG);
+  textEl('REGLETA', { x: 3199, y: 274, 'text-anchor': 'middle', 'font-size': 9.8, 'font-weight': 800, fill: '#15803d' }, peWagoG);
+  textEl('WAGO PE', { x: 3199, y: 290, 'text-anchor': 'middle', 'font-size': 9.8, 'font-weight': 800, fill: '#15803d' }, peWagoG);
+  textEl('(Sin pasar', { x: 3199, y: 314, 'text-anchor': 'middle', 'font-size': 8.9, 'font-weight': 700, fill: '#166534' }, peWagoG);
+  textEl('por RCBO)', { x: 3199, y: 327, 'text-anchor': 'middle', 'font-size': 8.9, 'font-weight': 700, fill: '#166534' }, peWagoG);
+  el('rect', { x: 3174, y: 344, width: 50, height: 24, rx: 5, fill: '#fef08a', stroke: '#15803d', 'stroke-width': 1.6 }, peWagoG);
+  textEl('PE', { x: 3199, y: 360, 'text-anchor': 'middle', 'font-size': 10.5, 'font-weight': 900, fill: '#15803d' }, peWagoG);
+  textEl('2,5–4 mm²', { x: 3199, y: 392, 'text-anchor': 'middle', 'font-size': 9, 'font-weight': 700, fill: '#166534' }, peWagoG);
+  el('circle', { cx: 3199, cy: 416, r: 5.5, fill: '#15803d', stroke: '#facc15', 'stroke-width': 1.8 }, peWagoG);
+
+  textEl('Manguera 3×2,5 mm² entubada en corrugado · Punteras crimpadas', {
+    x: 3071, y: 492, 'text-anchor': 'middle', 'font-size': 9.6, 'font-weight': 700, fill: '#475569',
+  }, acBox);
+
+  // 4.5 Salida inferior RCBO (Fase + Neutro) + Tierra PE -> Base Schuko Fija 230V
+  drawWire(wiresLayer, [[2962, 440], [2962, 602]], {
+    polarity: 'phase',
+    gauge: 'F 2,5 mm²',
+    labelPos: [2962, 532],
+    circuit: 'kitchen-ac',
   });
-  el('ellipse', { cx: 3118, cy: 1090, rx: 25, ry: 18, fill: '#fef3c7', stroke: '#92400e', 'stroke-width': 2 }, hob);
-  el('ellipse', { cx: 3190, cy: 1090, rx: 25, ry: 18, fill: '#fef3c7', stroke: '#92400e', 'stroke-width': 2 }, hob);
-  textEl('Montaje horizontal', { x: 3155, y: 1135, 'text-anchor': 'middle', 'font-size': 10, 'font-weight': 700, fill: '#78350f' }, hob);
+  drawWire(wiresLayer, [[3082, 440], [3082, 602]], {
+    polarity: 'neutral',
+    gauge: 'N 2,5 mm²',
+    labelPos: [3082, 532],
+    circuit: 'kitchen-ac',
+  });
+  // Tierra PE: sale de Regleta/Wago PE -> Base Schuko fija PE
+  drawWire(wiresLayer, [[3199, 424], [3199, 602]], {
+    polarity: 'earth',
+    gauge: 'PE',
+    labelPos: [3199, 532],
+    circuit: 'earth-230 kitchen-ac',
+  });
 
-  // Tierra 230V separada visualmente de la masa DC del Busbar (-).
-  drawWire(wiresLayer, [[3155, 900], [3155, 1210]], { polarity: 'earth', gauge: '2,5–4 mm²', labelPos: [3200, 1195], circuit: 'earth-230' });
-  drawGroundSymbol(compsLayer, 3155, 1210, 'Tierra Chasis', 'Tornillo independiente · separar de Busbar (-)', 'earth-230');
-  const acLegend = el('g', { class: 'comp-item', 'data-circuit': 'inverter-ac earth-230' }, compsLayer);
-  el('rect', { x: 2390, y: 1160, width: 610, height: 92, rx: 10, fill: '#f5f3ff', stroke: '#a78bfa', 'stroke-width': 1.5 }, acLegend);
-  textEl('LEYENDA 230V REBT', { x: 2420, y: 1185, 'font-size': 11, 'font-weight': 800, fill: '#5b21b6' }, acLegend);
-  textEl('Fase: marrón/negro', { x: 2420, y: 1210, 'font-size': 10, 'font-weight': 700, fill: '#92400e' }, acLegend);
-  textEl('Neutro: azul claro', { x: 2580, y: 1210, 'font-size': 10, 'font-weight': 700, fill: '#0284c7' }, acLegend);
-  textEl('Tierra: verde-amarillo', { x: 2730, y: 1210, 'font-size': 10, 'font-weight': 700, fill: '#15803d' }, acLegend);
-  textEl('Todo el cableado (12V y 230V) debe ir dentro de tubo corrugado y con terminales crimpados.', { x: 2420, y: 1235, 'font-size': 10.2, 'font-weight': 800, fill: '#334155' }, acLegend);
+  // Base de enchufe Schuko fija 230V
+  const schuko = el('g', { class: 'comp-item', 'data-circuit': 'kitchen-ac earth-230' }, compsLayer);
+  el('rect', { x: 2914, y: 602, width: 326, height: 132, rx: 12, fill: '#ffffff', stroke: '#92400e', 'stroke-width': 2.2 }, schuko);
+  el('path', { d: 'M 2914 614 Q 2914 602 2926 602 L 3228 602 Q 3240 602 3240 614 L 3240 634 L 2914 634 Z', fill: '#92400e' }, schuko);
+  textEl('BASE DE ENCHUFE SCHUKO FIJA 230V', { x: 3077, y: 623, 'text-anchor': 'middle', 'font-size': 10.8, 'font-weight': 800, fill: '#ffffff' }, schuko);
+  textEl('F (marrón)', { x: 2962, y: 652, 'text-anchor': 'middle', 'font-size': 9.4, 'font-weight': 800, fill: '#92400e' }, schuko);
+  textEl('N (azul)', { x: 3082, y: 652, 'text-anchor': 'middle', 'font-size': 9.4, 'font-weight': 800, fill: '#0284c7' }, schuko);
+  textEl('PE (v-a)', { x: 3199, y: 652, 'text-anchor': 'middle', 'font-size': 9.4, 'font-weight': 800, fill: '#15803d' }, schuko);
+  // Símbolo toma Schuko
+  el('circle', { cx: 3077, cy: 688, r: 23, fill: '#fef3c7', stroke: '#92400e', 'stroke-width': 2 }, schuko);
+  el('circle', { cx: 3067, cy: 688, r: 4, fill: '#78350f' }, schuko);
+  el('circle', { cx: 3087, cy: 688, r: 4, fill: '#78350f' }, schuko);
+  el('rect', { x: 3074, y: 665, width: 6, height: 6, rx: 1, fill: '#15803d' }, schuko);
+  el('rect', { x: 3074, y: 705, width: 6, height: 6, rx: 1, fill: '#15803d' }, schuko);
+  textEl('16A · 230V · F + N + PE', { x: 3077, y: 726, 'text-anchor': 'middle', 'font-size': 9.6, 'font-weight': 700, fill: '#475569' }, schuko);
+
+  // 4.6 Base Schuko fija -> Placa de Inducción fija empotrable 2 fuegos (2.990W)
+  drawWire(wiresLayer, [[2962, 734], [2962, 816]], { polarity: 'phase', gauge: '2,5 mm²', circuit: 'kitchen-ac' });
+  drawWire(wiresLayer, [[3082, 734], [3082, 816]], { polarity: 'neutral', gauge: '2,5 mm²', circuit: 'kitchen-ac' });
+  drawWire(wiresLayer, [[3199, 734], [3199, 816]], { polarity: 'earth', gauge: '2,5 mm²', circuit: 'kitchen-ac earth-230' });
+  drawGaugePill(wiresLayer, 3077, 775, 'Manguera 3×2,5 mm²', 'phase');
+
+  const hob = drawComponentCard(compsLayer, {
+    x: 2886, y: 816, w: 370, h: 214,
+    title: 'PLACA DE INDUCCIÓN FIJA (2 FUEGOS)',
+    subtitle: 'Empotrable · 2.990 W · Horizontal en encimera 40 cm',
+    subtitleY: 870,
+    accent: '#92400e',
+    badges: ['2.990 W · 2 fuegos', 'Encimera 40 cm · Horizontal'],
+    circuit: 'kitchen-ac',
+  });
+  // 2 zonas de inducción dispuestas en horizontal
+  el('rect', { x: 2924, y: 886, width: 294, height: 96, rx: 10, fill: '#1e293b', stroke: '#92400e', 'stroke-width': 1.8 }, hob);
+  el('circle', { cx: 3006, cy: 934, r: 32, fill: 'none', stroke: '#f59e0b', 'stroke-width': 2.2, 'stroke-dasharray': '5,3' }, hob);
+  el('circle', { cx: 3006, cy: 934, r: 16, fill: 'none', stroke: '#fbbf24', 'stroke-width': 1.5 }, hob);
+  el('circle', { cx: 3136, cy: 934, r: 36, fill: 'none', stroke: '#f59e0b', 'stroke-width': 2.2, 'stroke-dasharray': '5,3' }, hob);
+  el('circle', { cx: 3136, cy: 934, r: 20, fill: 'none', stroke: '#fbbf24', 'stroke-width': 1.5 }, hob);
+  textEl('FUEGO 1', { x: 3006, y: 938, 'text-anchor': 'middle', 'font-size': 8.5, 'font-weight': 800, fill: '#fde68a' }, hob);
+  textEl('FUEGO 2', { x: 3136, y: 938, 'text-anchor': 'middle', 'font-size': 8.5, 'font-weight': 800, fill: '#fde68a' }, hob);
+
+  // 4.7 Toma de Tierra 230V (INDEPENDIENTE de la masa de 12V del Busbar -)
+  // Une: PE carcasa inversor + PE clavija Schuko + Regleta/Wago PE (caja DIN) + Schuko fija -> Tornillo chasis independiente
+  drawWire(wiresLayer, [[2844, 258], [2860, 258], [2860, 568]], {
+    polarity: 'earth',
+    gauge: 'PE',
+    circuit: 'earth-230',
+  });
+  drawWire(wiresLayer, [[2662, 568], [3199, 568]], {
+    polarity: 'earth',
+    gauge: 'PE 2,5–4 mm²',
+    labelPos: [2760, 568],
+    circuit: 'earth-230',
+    hops: [
+      { segmentIndex: 1, dir: 'horizontal', x: 2962 },
+      { segmentIndex: 1, dir: 'horizontal', x: 3082 },
+    ],
+  });
+  drawWire(wiresLayer, [[2662, 420], [2662, 868], [2718, 868], [2718, 922]], {
+    polarity: 'earth',
+    gauge: 'PE 2,5–4 mm²',
+    labelPos: [2662, 720],
+    circuit: 'earth-230',
+  });
+  drawGroundSymbol(
+    compsLayer,
+    2718,
+    922,
+    'Tornillo Tierra Chasis (230V)',
+    'Ojal independiente · separado de masa 12V Busbar (-)',
+    'earth-230'
+  );
+
+  // 4.8 Leyenda 230V REBT y Nota de montaje para boletín (a la derecha de cables DC verticales)
+  const acLegend = el('g', { class: 'comp-item', 'data-circuit': 'inverter-ac earth-230 kitchen-ac' }, compsLayer);
+  el('rect', { x: 2594, y: 1100, width: 662, height: 174, rx: 12, fill: '#ffffff', stroke: '#7c3aed', 'stroke-width': 2 }, acLegend);
+  el('path', { d: 'M 2594 1112 Q 2594 1100 2606 1100 L 3244 1100 Q 3256 1100 3256 1112 L 3256 1134 L 2594 1134 Z', fill: '#6d28d9' }, acLegend);
+  textEl('LEYENDA 230V (REBT) · NOTA DE MONTAJE PARA BOLETÍN', {
+    x: 2925, y: 1122, 'text-anchor': 'middle', 'font-size': 11, 'font-weight': 800, fill: '#ffffff',
+  }, acLegend);
+
+  // Muestras de color REBT
+  el('line', { x1: 2616, y1: 1158, x2: 2648, y2: 1158, stroke: '#92400e', 'stroke-width': 5, 'stroke-linecap': 'round' }, acLegend);
+  textEl('Fase (F): marrón / negro', { x: 2658, y: 1162, 'font-size': 10.6, 'font-weight': 800, fill: '#92400e' }, acLegend);
+
+  el('line', { x1: 2828, y1: 1158, x2: 2860, y2: 1158, stroke: '#0284c7', 'stroke-width': 5, 'stroke-linecap': 'round' }, acLegend);
+  textEl('Neutro (N): azul claro', { x: 2870, y: 1162, 'font-size': 10.6, 'font-weight': 800, fill: '#0284c7' }, acLegend);
+
+  el('line', { x1: 3022, y1: 1158, x2: 3054, y2: 1158, stroke: '#facc15', 'stroke-width': 6, 'stroke-linecap': 'round' }, acLegend);
+  el('line', { x1: 3022, y1: 1158, x2: 3054, y2: 1158, stroke: '#15803d', 'stroke-width': 4.5, 'stroke-dasharray': '7,4', 'stroke-linecap': 'round' }, acLegend);
+  textEl('Tierra (PE): verde-amarillo', { x: 3064, y: 1162, 'font-size': 10.6, 'font-weight': 800, fill: '#15803d' }, acLegend);
+
+  // Nota destacada de boletín
+  el('rect', { x: 2612, y: 1180, width: 626, height: 42, rx: 8, fill: '#f5f3ff', stroke: '#c4b5fd', 'stroke-width': 1.4 }, acLegend);
+  textEl('Nota para boletín:', { x: 2624, y: 1197, 'font-size': 10.2, 'font-weight': 800, fill: '#5b21b6' }, acLegend);
+  textEl('Todo el cableado (12V y 230V) entubado en corrugado y con terminales/punteras crimpadas.', {
+    x: 2624, y: 1214, 'font-size': 10.2, 'font-weight': 700, fill: '#0f172a',
+  }, acLegend);
+  textEl('• RCBO 2-en-1 SAFEMORE (1/2: Fase · N: Neutro) · Tierra PE unida con regleta/Wago sin pasar por RCBO.', {
+    x: 2616, y: 1244, 'font-size': 9.8, 'font-weight': 600, fill: '#334155',
+  }, acLegend);
+  textEl('• Tierra 230V con terminal de ojal a tornillo de chasis independiente de la masa 12V del Busbar (-).', {
+    x: 2616, y: 1261, 'font-size': 9.8, 'font-weight': 600, fill: '#166534',
+  }, acLegend);
+
+  // Bornes Zona 4
+  drawTerminal(compsLayer, 1270, 296, 'pos');
+  drawTerminal(compsLayer, 1245, 1076, 'neg');
+  drawTerminal(compsLayer, 2448, 420, 'pos');
+  drawTerminal(compsLayer, 2554, 420, 'neg');
+  drawTerminal(compsLayer, 2662, 420, 'earth');
+  drawTerminal(compsLayer, 2962, 602, 'phase');
+  drawTerminal(compsLayer, 3082, 602, 'neutral');
+  drawTerminal(compsLayer, 3199, 602, 'earth');
+  drawTerminal(compsLayer, 2962, 816, 'phase');
+  drawTerminal(compsLayer, 3082, 816, 'neutral');
+  drawTerminal(compsLayer, 3199, 816, 'earth');
+  drawTerminal(compsLayer, 2662, 568, 'earth');
+  drawTerminal(compsLayer, 2860, 568, 'earth');
+  drawTerminal(compsLayer, 3199, 568, 'earth');
+  drawTerminal(compsLayer, 2718, 922, 'earth');
 }
 
 // ===========================================================================
@@ -1162,6 +1368,7 @@ function initInteractions(initialScheme = 'electric') {
       svgName: 'esquema-electrico-camper-12v.svg',
       pngName: 'esquema-electrico-camper-12v-HD.png',
       pdfHref: 'esquema-electrico-camper-12v.pdf',
+      width: 3300,
       buildFn: buildDiagram,
     },
     plumbing: {
@@ -1196,6 +1403,7 @@ function initInteractions(initialScheme = 'electric') {
       svgName: 'esquema-fontaneria-sprinter-l2h2.svg',
       pngName: 'esquema-fontaneria-sprinter-l2h2-HD.png',
       pdfHref: 'esquema-fontaneria-camper.pdf',
+      width: 2360,
       buildFn: typeof buildPlumbingDiagram === 'function' ? buildPlumbingDiagram : buildDiagram,
     },
   };
@@ -1228,8 +1436,8 @@ function initInteractions(initialScheme = 'electric') {
   viewport.addEventListener('wheel', (e) => {
     e.preventDefault();
     const rect = svg.getBoundingClientRect();
-    const viewBoxW = DIAGRAM_WIDTH;
-    const viewBoxH = 1380;
+    const viewBoxW = SCHEME_CONFIG[activeScheme].width || DIAGRAM_WIDTH;
+    const viewBoxH = DIAGRAM_HEIGHT;
     const scaleFit = Math.min(rect.width / viewBoxW, rect.height / viewBoxH);
     const offsetX = (rect.width - viewBoxW * scaleFit) / 2;
     const offsetY = (rect.height - viewBoxH * scaleFit) / 2;
@@ -1259,7 +1467,8 @@ function initInteractions(initialScheme = 'electric') {
   window.addEventListener('mousemove', (e) => {
     if (!isPanning) return;
     const rect = svg.getBoundingClientRect();
-    const scaleFit = Math.min(rect.width / DIAGRAM_WIDTH, rect.height / DIAGRAM_HEIGHT);
+    const viewBoxW = SCHEME_CONFIG[activeScheme].width || DIAGRAM_WIDTH;
+    const scaleFit = Math.min(rect.width / viewBoxW, rect.height / DIAGRAM_HEIGHT);
     const dx = (e.clientX - startX) / scaleFit;
     const dy = (e.clientY - startY) / scaleFit;
     startX = e.clientX;
@@ -1454,7 +1663,11 @@ function initInteractions(initialScheme = 'electric') {
     chip4.innerHTML = cfg.chips[3] || '';
     chip5.innerHTML = cfg.chips[4] || '';
     chip6.innerHTML = cfg.chips[5] || '';
+    chip4.style.display = cfg.chips[3] ? '' : 'none';
+    chip5.style.display = cfg.chips[4] ? '' : 'none';
+    chip6.style.display = cfg.chips[5] ? '' : 'none';
 
+    svg.setAttribute('viewBox', `0 0 ${cfg.width || DIAGRAM_WIDTH} ${DIAGRAM_HEIGHT}`);
     selectCircuit(null);
     cfg.buildFn();
     renderFilterButtons(cfg);
@@ -1508,7 +1721,8 @@ function initInteractions(initialScheme = 'electric') {
     clone.querySelectorAll('.highlighted').forEach((n) => n.classList.remove('highlighted'));
     const cloneRoot = clone.getElementById('viewport-root');
     if (cloneRoot) cloneRoot.removeAttribute('transform');
-    clone.setAttribute('width', String(DIAGRAM_WIDTH));
+    const exportW = SCHEME_CONFIG[activeScheme].width || DIAGRAM_WIDTH;
+    clone.setAttribute('width', String(exportW));
     clone.setAttribute('height', String(DIAGRAM_HEIGHT));
     return new XMLSerializer().serializeToString(clone);
   }
@@ -1530,9 +1744,10 @@ function initInteractions(initialScheme = 'electric') {
     const url = URL.createObjectURL(svgBlob);
     const img = new Image();
     img.onload = () => {
-      const scaleExport = 2; // 4720 x 2760 px HD
+      const exportW = SCHEME_CONFIG[activeScheme].width || DIAGRAM_WIDTH;
+      const scaleExport = 2;
       const canvas = document.createElement('canvas');
-      canvas.width = DIAGRAM_WIDTH * scaleExport;
+      canvas.width = exportW * scaleExport;
       canvas.height = DIAGRAM_HEIGHT * scaleExport;
       const ctx = canvas.getContext('2d');
       ctx.fillStyle = '#f8fafc';

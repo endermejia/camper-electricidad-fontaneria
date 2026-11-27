@@ -30,9 +30,9 @@ Proyecto interactivo (`HTML` + `SVG`) y dossiers imprimibles en PDF para diseña
     - **Vía 5 (`15A`, `2,5 mm²`):** `Bomba a presión VEVOR 12V (96W · presostato)` + interruptor de corte en pared `20A 3P LED`.
     - **Vía 6 (`15A`, `4 mm²`):** `Nevera de compresor 12V`.
 
-- **Zona 230V / Cocina fija:** Busbar (+) → **ANL/MEGA 300A** → cable `70 mm²` (o `2×35 mm²`, ojales M8) → inversor de onda pura `2.000W`; retorno `70 mm²` al Busbar (-). La salida pasa por cuadro con diferencial bipolar `40A / 30mA` y magnetotérmico bipolar `16A`, después por manguera `3×2,5 mm²` a Schuko fija y placa de inducción empotrable de 2 fuegos.
-- **Tierra 230V independiente:** conductor verde-amarillo `2,5–4 mm²` desde carcasa del inversor, cuadro y Schuko a `Tierra Chasis (tornillo independiente)`, separado de la masa 12V.
-- **Nota de montaje para boletín:** todo el cableado (12V y 230V) debe ir dentro de tubo corrugado y con terminales crimpados. Colores REBT: fase marrón/negro, neutro azul claro y tierra verde-amarillo.
+- **Zona 230V / Cocina fija:** Busbar (+) → **ANL/MEGA 300A** → cable `70 mm²` (o `2×35 mm²`, ojales M8) → inversor de onda pura `2.000W`; retorno `70 mm²` al Busbar (-). La salida AC (clavija Schuko macho + manguera flexible `3×2,5 mm²` en corrugado) entra por la parte superior al cuadro de superficie DIN 2 módulos con un **RCBO combinado 2-en-1 SAFEMORE 16A Curva C, 30 mA, Clase A, 1P+N, 6kA** (borne `1/2`: Fase · borne `N`: Neutro) y sale por abajo hacia la base Schuko fija `230V` y la placa de inducción fija empotrable de 2 fuegos (`2.990W`, montaje horizontal en encimera de 40 cm).
+- **Tierra 230V independiente:** conductor verde-amarillo `2,5–4 mm²` que une la carcasa del inversor, la tierra en caja DIN (unida con regleta/Wago **sin pasar por el RCBO**) y la base Schuko fija, con terminal de ojal a un `Tornillo de Tierra Chasis independiente` (separado de la masa 12V del Busbar -).
+- **Nota de montaje para boletín:** todo el cableado (12V y 230V) entubado en corrugado y con terminales/punteras crimpadas. Colores REBT: fase marrón/negro, neutro azul claro y tierra verde-amarillo.
 
 ---
 

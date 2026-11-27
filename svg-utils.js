@@ -40,7 +40,8 @@ function wireStrokeWidth(gaugeText) {
     return 3.6;
   }
   // Secciones eléctricas (mm²)
-  if (gaugeText.includes('50')) return 8.5;
+  if (gaugeText.includes('70') || gaugeText.includes('50')) return 8.5;
+  if (gaugeText.includes('35')) return 7.2;
   if (gaugeText.includes('16')) return 5.5;
   if (gaugeText.includes('10')) return 4.5;
   if (gaugeText.includes('6')) return 3.6;
@@ -110,15 +111,15 @@ function drawWire(parent, points, { polarity = 'pos', gauge = '', labelPos = nul
     }
   }
 
-  // Halo blanco sutil para legibilidad sobre rejilla y fondos
+  // Halo blanco sutil para legibilidad sobre rejilla y fondos (amarillo para tierra PE verde-amarillo)
   el('path', {
     d,
     fill: 'none',
-    stroke: '#ffffff',
-    'stroke-width': sw + 3,
+    stroke: polarity === 'earth' ? '#facc15' : '#ffffff',
+    'stroke-width': polarity === 'earth' ? sw + 1.4 : sw + 3,
     'stroke-linecap': 'round',
     'stroke-linejoin': 'round',
-    opacity: 0.75,
+    opacity: polarity === 'earth' ? 0.95 : 0.75,
   }, g);
 
   const pathAttrs = {
