@@ -278,6 +278,18 @@ svg.filter-grey .wire-hot {
   border: 1px solid #64748b;
 }
 
+.swatch.phase {
+  background: #92400e;
+}
+
+.swatch.neutral {
+  background: #38bdf8;
+}
+
+.swatch.earth {
+  background: #15803d;
+}
+
 .ring-swatch {
   width: 11px;
   height: 11px;

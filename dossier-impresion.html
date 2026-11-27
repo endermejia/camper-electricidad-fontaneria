@@ -240,7 +240,7 @@
       </div>
     </div>
     <div class="svg-frame">
-      <svg id="diagram-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2360 1380"></svg>
+      <svg id="diagram-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3300 1380"></svg>
     </div>
   </section>
 
@@ -261,8 +261,12 @@
         <tr><td>Booster DC-DC OUT (+) → Busbar Positivo (+)</td><td class="tc"><span class="pill pill-gauge">16 mm²</span></td><td><span class="pill pill-fuse">Fusible MIDI 40A (M5)</span></td></tr>
         <tr><td>Regulador MPPT BAT (+) → Busbar Positivo (+)</td><td class="tc"><span class="pill pill-gauge">10 mm²</span></td><td><span class="pill pill-fuse">Fusible MIDI 40A (M5)</span></td></tr>
         <tr><td>Masas Booster (16 mm²) y MPPT (10 mm²) → Busbar Negativo (-)</td><td class="tc"><span class="pill pill-gauge">16 / 10 mm²</span></td><td>Retorno directo (Anilla M8 en Busbar)</td></tr>
-        <tr><td>Batería LiFePO4 300Ah (+ M8) → Busbar Positivo (+)</td><td class="tc"><span class="pill pill-gauge">50 mm²</span></td><td><span class="pill pill-fuse">MRBF 300A (directo borne M8) + Cortacorrientes 300A</span></td></tr>
-        <tr><td>Batería LiFePO4 300Ah (- M8) → Busbar Negativo (-)</td><td class="tc"><span class="pill pill-gauge">50 mm²</span></td><td>Retorno directo (Anillas M8)</td></tr>
+        <tr><td>Batería LiFePO4 300Ah (+ M8) → Busbar Positivo (+)</td><td class="tc"><span class="pill pill-gauge">70 mm² (o 50 mm² &lt;1 m)</span></td><td><span class="pill pill-fuse">MRBF 300A (directo borne M8) + Cortacorrientes 300A</span> · M8</td></tr>
+        <tr><td>Batería LiFePO4 300Ah (- M8) → Busbar Negativo (-)</td><td class="tc"><span class="pill pill-gauge">70 mm² (o 50 mm² &lt;1 m)</span></td><td>Retorno directo · Anillas M8</td></tr>
+        <tr><td>Busbar Positivo (+) → Inversor Onda Pura 2.000W</td><td class="tc"><span class="pill pill-gauge">70 mm² (o 2×35 mm²)</span></td><td><span class="pill pill-fuse">ANL/MEGA 300A</span> · Anillas M8</td></tr>
+        <tr><td>Inversor (-) → Busbar Negativo (-)</td><td class="tc"><span class="pill pill-gauge">70 mm² (o 2×35 mm²)</span></td><td>Retorno DC · Anillas M8</td></tr>
+        <tr><td>Inversor 230V → Cuadro → Schuko → Placa inducción 2 fuegos</td><td class="tc"><span class="pill pill-gauge">Manguera 3×2,5 mm²</span></td><td><span class="pill pill-fuse">Diferencial 40A/30mA + magnetotérmico bipolar 16A</span></td></tr>
+        <tr><td>Tierra independiente: inversor + cuadro + Schuko → chasis</td><td class="tc"><span class="pill pill-gauge">2,5–4 mm²</span></td><td>Verde-amarillo · tornillo independiente, separado de masa 12V</td></tr>
         <tr><td>Busbar Negativo (-) → Masa Chasis Vehículo</td><td class="tc"><span class="pill pill-gauge">16 mm²</span></td><td>Puesta a masa carrocería (Anilla M8 / M10)</td></tr>
         <tr><td>Busbar (+) → Boiler Carbest CozyWater 10L (12V / 200W)</td><td class="tc"><span class="pill pill-gauge">6 mm²</span></td><td><span class="pill pill-fuse">Magnetotérmico DC 1P 25A</span> (fijo en caja DIN, Anillas M8 en Busbars)</td></tr>
         <tr><td>Busbar (+) → Panel USB PD 20W + QC3.0 + Mechero 150W + Voltímetro</td><td class="tc"><span class="pill pill-gauge">2,5 / 4 mm²</span></td><td><span class="pill pill-fuse">Portafusibles aéreo propio (15A, kit incluido)</span></td></tr>
@@ -275,7 +279,7 @@
         <tr><td><strong>Vía 3:</strong> Puerto USB-C #1 (100W)</td><td class="tc"><span class="pill pill-gauge">2,5 / 4 mm²</span></td><td><span class="pill pill-fuse">Fusible 15A</span> (4 mm² si &gt; 3 m, Anillas M4)</td></tr>
         <tr><td><strong>Vía 4:</strong> Puerto USB-C #2 (100W)</td><td class="tc"><span class="pill pill-gauge">2,5 / 4 mm²</span></td><td><span class="pill pill-fuse">Fusible 15A</span> (4 mm² si &gt; 3 m, Anillas M4)</td></tr>
         <tr><td><strong>Vía 5:</strong> Bomba VEVOR 12V (96W · 11,3 L/min · presostato)</td><td class="tc"><span class="pill pill-gauge">2,5 mm²</span></td><td><span class="pill pill-fuse">Fusible 15A</span> + <strong>Int. 20A 3P LED</strong> (Anillas M4)</td></tr>
-        <tr><td><strong>Vía 6:</strong> Nevera compresor 12V / Reserva</td><td class="tc"><span class="pill pill-gauge">4 mm²</span></td><td><span class="pill pill-fuse">Fusible 15A</span> (Anillas M4 en Fentar)</td></tr>
+        <tr><td><strong>Vía 6:</strong> Nevera de compresor 12V</td><td class="tc"><span class="pill pill-gauge">4 mm²</span></td><td><span class="pill pill-fuse">Fusible 15A</span> (Anillas M4 en Fentar)</td></tr>
       </tbody>
     </table>
   </section>
@@ -294,8 +298,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr><td class="tc"><span class="pill pill-pos">50 mm²</span></td><td class="tc">1</td><td><strong>Anilla M8</strong> → Salida <strong>MRBF 300A</strong> (en batería)</td><td><strong>Anilla M8</strong> <em>(o M10*)</em> → <strong>Cortacorrientes 300A</strong></td><td>Medir en obra y hacer completo</td></tr>
-        <tr><td class="tc"><span class="pill pill-pos">50 mm²</span></td><td class="tc">1</td><td><strong>Anilla M8</strong> <em>(o M10*)</em> → Salida <strong>Cortacorrientes</strong></td><td><strong>Anilla M8</strong> → <strong>Busbar Positivo (+)</strong></td><td>Medir en obra y hacer completo</td></tr>
+        <tr><td class="tc"><span class="pill pill-pos">70 mm²<br>(o 50 &lt;1 m)</span></td><td class="tc">1</td><td><strong>Anilla M8</strong> → Salida <strong>MRBF 300A</strong> (en batería)</td><td><strong>Anilla M8</strong> <em>(o M10*)</em> → <strong>Cortacorrientes 300A</strong></td><td>Medir en obra y hacer completo</td></tr>
+        <tr><td class="tc"><span class="pill pill-pos">70 mm²<br>(o 50 &lt;1 m)</span></td><td class="tc">1</td><td><strong>Anilla M8</strong> <em>(o M10*)</em> → Salida <strong>Cortacorrientes</strong></td><td><strong>Anilla M8</strong> → <strong>Busbar Positivo (+)</strong></td><td>Medir en obra y hacer completo</td></tr>
         <tr><td class="tc"><span class="pill pill-pos">16 mm²</span></td><td class="tc">1</td><td><strong>Anilla M8</strong> <em>(o M6 motor)</em> → Bat. Arranque (+)</td><td><strong>Anilla M5</strong> → Entrada <strong>MIDI 60A</strong></td><td>Muy corto (&lt; 20 cm)</td></tr>
         <tr><td class="tc"><span class="pill pill-pos">16 mm²</span></td><td class="tc">1</td><td><strong>Anilla M5</strong> → Salida <strong>MIDI 60A</strong></td><td><strong>Pelado / Puntera 16 mm²</strong> <em>(o M6*)</em> → IN (+) <strong>Booster</strong></td><td>Cable largo: crimpar solo M5 antes de pasar</td></tr>
         <tr><td class="tc"><span class="pill pill-pos">16 mm²</span></td><td class="tc">1</td><td><strong>Pelado / Puntera 16 mm²</strong> <em>(o M6*)</em> → OUT (+) <strong>Booster</strong></td><td><strong>Anilla M5</strong> → Entrada <strong>MIDI 40A (Booster)</strong></td><td>Hacer completo</td></tr>
@@ -335,7 +339,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr><td class="tc"><span class="pill pill-neg">50 mm²</span></td><td class="tc">1</td><td><strong>Anilla M8</strong> → Borne (-) M8 <strong>Batería 300Ah</strong></td><td><strong>Anilla M8</strong> → <strong>Busbar Negativo (-)</strong></td><td>Hacer completo tras medir</td></tr>
+        <tr><td class="tc"><span class="pill pill-neg">70 mm²<br>(o 50 &lt;1 m)</span></td><td class="tc">1</td><td><strong>Anilla M8</strong> → Borne (-) M8 <strong>Batería 300Ah</strong></td><td><strong>Anilla M8</strong> → <strong>Busbar Negativo (-)</strong></td><td>Hacer completo tras medir</td></tr>
         <tr><td class="tc"><span class="pill pill-neg">16 mm²</span></td><td class="tc">1</td><td><strong>Pelado / Puntera 16 mm²</strong> <em>(o M6*)</em> → Masa (-) <strong>Booster</strong></td><td><strong>Anilla M8</strong> → <strong>Busbar Negativo (-)</strong></td><td>Hacer completo</td></tr>
         <tr><td class="tc"><span class="pill pill-neg">16 mm²</span></td><td class="tc">1</td><td><strong>Anilla M8</strong> → <strong>Busbar Negativo (-)</strong></td><td><strong>Anilla M8 o M10</strong> <em>(tornillo chasis)</em> → <strong>Masa Chasis</strong></td><td>Comprobar tornillo chapa vehículo</td></tr>
         <tr><td class="tc"><span class="pill pill-neg">10 mm²</span></td><td class="tc">1</td><td><strong>Pelado / Puntera 10 mm²</strong> <em>(o M6*)</em> → Masa (-) <strong>MPPT</strong></td><td><strong>Anilla M8</strong> → <strong>Busbar Negativo (-)</strong></td><td>Hacer completo</td></tr>
@@ -411,12 +415,19 @@
         <tr><td>Ya comprado</td><td>ISOLATECH Tubo corrugado sin ranura UL94V0: Ø16/20 mm (25 m) + Ø20/25 mm (10 m)</td><td class="tc">35 m total</td><td class="tc"><span class="pill pill-owned">Comprado (30,99 + 22,99 €)</span></td></tr>
         <tr><td>Ya comprado</td><td>Romon 400 uds Termorretráctil 3:1 con Adhesivo (Rojo/Negro, 3,2 a 25,4 mm)</td><td class="tc">400 uds</td><td class="tc"><span class="pill pill-owned">Comprado (13,24 €)</span></td></tr>
         <tr><td>Equipo principal</td><td>Batería LiFePO4 300Ah Eco-Worthy (M8) · Eco-Worthy DC-DC+MPPT · Placa 450W · Boiler · Bomba VEVOR 96W (43,90 € ref.) · Consumos</td><td class="tc">1 lote</td><td class="tc"><span class="pill pill-owned">Ya disponible</span></td></tr>
-        <tr><td>Cableado</td><td>Cable flexible <strong>50 mm²</strong> (MRBF → Cortacorrientes → Busbars y Bat -)</td><td class="tc">~1,5 m</td><td class="tc"><span class="pill pill-cost">22 – 32 €</span></td></tr>
+        <tr><td>Cableado</td><td>Cable flexible <strong>70 mm²</strong> (o 50 mm² &lt;1 m) (MRBF → Cortacorrientes → Busbars y Bat -)</td><td class="tc">~1,5 m</td><td class="tc"><span class="pill pill-cost">Pendiente</span></td></tr>
         <tr><td>Cableado</td><td>Cable flexible <strong>16 mm²</strong> (Motor, Booster y Masa Chasis)</td><td class="tc">~8–10 m</td><td class="tc"><span class="pill pill-cost">35 – 50 €</span></td></tr>
         <tr><td>Cableado</td><td>Cable flexible <strong>10 mm²</strong> (MPPT y alimentación Caja Fentar)</td><td class="tc">~6–8 m</td><td class="tc"><span class="pill pill-cost">20 – 30 €</span></td></tr>
         <tr><td>Cableado</td><td>Cable flexible <strong>6 mm²</strong> (Placa Solar y Boiler 200W)</td><td class="tc">~12–16 m</td><td class="tc"><span class="pill pill-cost">24 – 36 €</span></td></tr>
         <tr><td>Cableado</td><td>Cable flexible <strong>4 mm²</strong> (Calefacción, Nevera y USB &gt; 3 m)</td><td class="tc">~12–15 m</td><td class="tc"><span class="pill pill-cost">18 – 25 €</span></td></tr>
         <tr><td>Cableado</td><td>Cable flexible <strong>2,5 mm² y 1,5 mm²</strong> (Claraboya, Bomba, USB, 4 zonas LED)</td><td class="tc">~30–40 m</td><td class="tc"><span class="pill pill-cost">25 – 38 €</span></td></tr>
+        <tr><td>Nuevo · Zona 230V</td><td>Inversor Onda Pura 2.000W (12V → 230V)</td><td class="tc">1 ud</td><td class="tc"><span class="pill pill-cost">Pendiente</span></td></tr>
+        <tr><td>Nuevo · Zona 230V</td><td>Portafusibles + Fusible ANL/MEGA 300A</td><td class="tc">1 kit</td><td class="tc"><span class="pill pill-cost">Pendiente</span></td></tr>
+        <tr><td>Nuevo · Zona 230V</td><td>Cable 70 mm² (o 2×35 mm²) con ojales M8</td><td class="tc">2 líneas</td><td class="tc"><span class="pill pill-cost">Pendiente</span></td></tr>
+        <tr><td>Nuevo · Zona 230V</td><td>Cuadro 230V: Diferencial 40A/30mA + Magnetotérmico bipolar 16A</td><td class="tc">1 ud</td><td class="tc"><span class="pill pill-cost">Pendiente</span></td></tr>
+        <tr><td>Nuevo · Zona 230V</td><td>Manguera flexible 3×2,5 mm² + base Schuko fija 230V</td><td class="tc">Según trazado + 1 ud</td><td class="tc"><span class="pill pill-cost">Pendiente</span></td></tr>
+        <tr><td>Nuevo · Zona 230V</td><td>Cable tierra verde-amarillo 2,5–4 mm² + placa inducción empotrable 2 fuegos</td><td class="tc">Según trazado + 1 ud</td><td class="tc"><span class="pill pill-cost">Pendiente</span></td></tr>
+        <tr><td>Nuevo · Homologación</td><td>Tubo corrugado para todo el cableado 12V y 230V</td><td class="tc">Según trazado</td><td class="tc"><span class="pill pill-cost">Pendiente</span></td></tr>
         <tr><td>Anillas</td><td>Pack completo terminales de anilla (Tabla 4: 50 / 16 / 10 / 6 / 4 / 2,5 mm²)</td><td class="tc">52 uds</td><td class="tc"><span class="pill pill-cost">38 – 63 €</span></td></tr>
         <tr><td>Acabado</td><td>Bridas de nylon negras <em>(corrugado ISOLATECH y termorretráctil Romon ya comprados)</em></td><td class="tc">1 lote</td><td class="tc"><span class="pill pill-cost">3 – 5 €</span></td></tr>
         <tr class="total-row"><td colspan="2">TOTAL PENDIENTE DE COMPRAR (ya descontados 248,03 € en material auxiliar ya comprado)</td><td class="tc">—</td><td class="tc">~185 – 280 €</td></tr>
@@ -430,6 +441,8 @@
         <li><strong>Interruptores RUNCCI-YUN 3 Pines (LED azul):</strong> conectar <strong>Rojo</strong> a alimentación (+), <strong>Amarillo</strong> a salida (+) hacia Bomba/LED y el hilo fino <strong>Negro (-)</strong> a la Wago (-) o Busbar (-) para iluminar el LED azul al activar.</li>
         <li><strong>Caja DIN QINGLEE (Wengart 2P + Jadeshay 1P) y Corrugado sin ranura:</strong> respeta (+)/(-) en el Wengart 2P solar; pasa los cables por los tubos ISOLATECH (Ø16/20 y Ø20/25 mm) <strong>antes de crimpar</strong> la 2ª anilla.</li>
         <li><strong>Busbars Simangy 300A (6×M8) y verificación:</strong> apila Boiler 6 mm² abajo + USB 2,5/4 mm² encima en el Negativo (-); confirma métrica de las 4 anillas del Pindex 300A (M8/M10) y bornes del combo Eco-Worthy.</li>
+        <li><strong>230V / boletín:</strong> todo el cableado (12V y 230V) debe ir dentro de tubo corrugado y con terminales crimpados. La tierra verde-amarillo del inversor, cuadro y Schuko termina en un tornillo de chasis independiente y separado visualmente de la masa negativa de 12V.</li>
+        <li><strong>Colores REBT:</strong> fase marrón/negro, neutro azul claro y tierra verde-amarillo. El diferencial y el magnetotérmico deben cortar fase y neutro.</li>
       </ul>
     </div>
   </section>

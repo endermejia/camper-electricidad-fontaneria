@@ -18,7 +18,7 @@ Proyecto interactivo (`HTML` + `SVG`) y dossiers imprimibles en PDF para diseña
   - Alternador / Batería de arranque → cable `16 mm²` + **Fusible MIDI 60A** (`< 20 cm`) → **Booster DC-DC Eco-Worthy** → **MIDI 40A** → Busbar (+).
   - **Placa Solar 450W** (`MC4`) → **Magnetotérmico DC Bipolar 2P 25A (Wengart)** (`6 mm²`, módulos 1–2 de caja estanca **QINGLEE 3 módulos**) → **Regulador MPPT Eco-Worthy** → **MIDI 40A** (`10 mm²`) → Busbar (+).
 - **Batería y distribución de potencia (`300A`):**
-  - **Batería Auxiliar LiFePO4 12V 300Ah Eco-Worthy (bornes M8)** con **Fusible Terminal MRBF 300A (QUARKZMAN)** atornillado directo en borne `+` M8 → `50 mm²` → **Cortacorrientes rotativo Pindex 300A** → **Busbars Simangy 300A (`6 × pernos M8`)**.
+  - **Batería Auxiliar LiFePO4 12V 300Ah Eco-Worthy (bornes M8)** con **Fusible Terminal MRBF 300A (QUARKZMAN)** atornillado directo en borne `+` M8 → `70 mm²` (o `50 mm²` si el tramo es `< 1 m`) → **Cortacorrientes rotativo Pindex 300A** → **Busbars Simangy 300A (`6 × pernos M8`)**.
   - Puesta a masa chasis en `16 mm²` desde el Busbar Negativo (-).
 - **Consumos 12V:**
   - **Línea dedicada Boiler Carbest CozyWater 10L (`12V / 200W`):** `6 mm²` directo desde Busbars con **Magnetotérmico DC 1P 25A (Jadeshay)** en módulo 3 de la misma caja DIN.
@@ -28,7 +28,11 @@ Proyecto interactivo (`HTML` + `SVG`) y dossiers imprimibles en PDF para diseña
     - **Vía 2 (`20A`, `4 mm²`):** `Calefacción estacionaria Nordkapp Air 2kW`.
     - **Vías 3 y 4 (`15A`, `2,5 / 4 mm²`):** `2 × Puertos USB-C 100W`.
     - **Vía 5 (`15A`, `2,5 mm²`):** `Bomba a presión VEVOR 12V (96W · presostato)` + interruptor de corte en pared `20A 3P LED`.
-    - **Vía 6 (`15A`, `4 mm²`):** `Nevera compresor 12V / Reserva`.
+    - **Vía 6 (`15A`, `4 mm²`):** `Nevera de compresor 12V`.
+
+- **Zona 230V / Cocina fija:** Busbar (+) → **ANL/MEGA 300A** → cable `70 mm²` (o `2×35 mm²`, ojales M8) → inversor de onda pura `2.000W`; retorno `70 mm²` al Busbar (-). La salida pasa por cuadro con diferencial bipolar `40A / 30mA` y magnetotérmico bipolar `16A`, después por manguera `3×2,5 mm²` a Schuko fija y placa de inducción empotrable de 2 fuegos.
+- **Tierra 230V independiente:** conductor verde-amarillo `2,5–4 mm²` desde carcasa del inversor, cuadro y Schuko a `Tierra Chasis (tornillo independiente)`, separado de la masa 12V.
+- **Nota de montaje para boletín:** todo el cableado (12V y 230V) debe ir dentro de tubo corrugado y con terminales crimpados. Colores REBT: fase marrón/negro, neutro azul claro y tierra verde-amarillo.
 
 ---
 

@@ -4,6 +4,9 @@
  */
 
 // Definición de los 6 circuitos de la caja de fusibles ATC/ATO
+const DIAGRAM_WIDTH = 3300;
+const DIAGRAM_HEIGHT = 1380;
+
 const FUSEBOX_CIRCUITS = [
   {
     id: 'via-1',
@@ -68,7 +71,7 @@ const FUSEBOX_CIRCUITS = [
     via: 'Vía 6',
     fuse: '15A',
     gauge: '4 mm²',
-    title: 'Nevera compresor 12V / Reserva',
+    title: 'Nevera de compresor 12V',
     subtitle: 'Alimentación frigorífico 12V',
     hasSwitch: false,
   },
@@ -84,9 +87,11 @@ const SUMMARY_DATA = [
       { tramo: 'Booster DC-DC → Busbar Positivo (+)', gauge: '16 mm²', prot: 'Fusible MIDI 40A', target: 'booster-busbar' },
       { tramo: 'Regulador MPPT → Busbar Positivo (+)', gauge: '10 mm²', prot: 'Fusible MIDI 40A', target: 'mppt-busbar' },
       { tramo: 'Masas Booster (16) y MPPT (10) → Busbar Negativo (-)', gauge: '16 / 10 mm²', prot: 'Retorno directo', target: 'mppt-busbar' },
-      { tramo: 'Batería LiFePO4 300Ah (+) → Busbar Positivo (+)', gauge: '50 mm²', prot: 'Fusible Terminal MRBF 300A (directo M8) + Cortacorrientes 300A', target: 'aux-battery' },
-      { tramo: 'Batería LiFePO4 300Ah (-) → Busbar Negativo (-)', gauge: '50 mm²', prot: 'Retorno directo', target: 'aux-battery' },
+      { tramo: 'Batería LiFePO4 300Ah (+) → Busbar Positivo (+)', gauge: '70 mm² (o 50 mm² <1 m) · M8', prot: 'Fusible Terminal MRBF 300A (directo M8) + Cortacorrientes 300A', target: 'aux-battery' },
+      { tramo: 'Batería LiFePO4 300Ah (-) → Busbar Negativo (-)', gauge: '70 mm² (o 50 mm² <1 m) · M8', prot: 'Retorno directo', target: 'aux-battery' },
       { tramo: 'Busbar Negativo (-) → Masa Chasis Vehículo', gauge: '16 mm²', prot: 'Puesta a masa chasis', target: 'chassis-ground' },
+      { tramo: 'Busbar (+) → Inversor 12V→230V Onda Pura 2.000W', gauge: '70 mm² (o 2×35)', prot: 'Fusible ANL/MEGA 300A · Anillas M8', target: 'inverter-dc' },
+      { tramo: 'Inversor (-) → Busbar Negativo (-)', gauge: '70 mm² (o 2×35)', prot: 'Retorno DC · Anillas M8', target: 'inverter-dc' },
     ],
   },
   {
@@ -117,6 +122,14 @@ const SUMMARY_DATA = [
           target: c.id,
         }];
       }),
+    ],
+  },
+  {
+    group: 'Zona 230V / Cocina fija',
+    rows: [
+      { tramo: 'Salida inversor → Cuadro 230V', gauge: '3×2,5 mm²', prot: 'Diferencial bipolar 40A / 30mA + magnetotérmico bipolar 16A', target: 'inverter-ac' },
+      { tramo: 'Magnetotérmico 16A → Schuko → Placa inducción fija 2 fuegos', gauge: '3×2,5 mm²', prot: 'Fase marrón/negro · Neutro azul claro · Tierra verde-amarillo', target: 'kitchen-ac' },
+      { tramo: 'Tierra independiente 230V → Tierra Chasis', gauge: '2,5–4 mm²', prot: 'Carcasa inversor + cuadro + Schuko · tornillo independiente', target: 'earth-230' },
     ],
   },
 ];
@@ -150,7 +163,7 @@ const BOM_DATA = [
   {
     group: '2. Cableado de Cobre Flexible a comprar (Rojo + / Negro -)',
     rows: [
-      { item: 'Cable 50 mm² (MRBF → Cortacorrientes → Busbar + y Bat - → Busbar -)', qty: '~1,5 m', spec: '50 mm²', cost: '22 – 32 €' },
+      { item: 'Cable 70 mm² (o 50 mm² <1 m) (MRBF → Cortacorrientes → Busbar + y Bat - → Busbar -)', qty: '~1,5 m', spec: '70 mm² · M8', cost: 'Pendiente' },
       { item: 'Cable 16 mm² (Motor → Booster, Booster (-) y Masa Chasis)', qty: '~8–10 m', spec: '16 mm²', cost: '35 – 50 €' },
       { item: 'Cable 10 mm² (MPPT → Busbars y Busbars → Caja Fentar 6 vías)', qty: '~6–8 m', spec: '10 mm²', cost: '20 – 30 €' },
       { item: 'Cable 6 mm² (Placa Solar → Magnetotérmico → MPPT y Boiler)', qty: '~12–16 m', spec: '6 mm²', cost: '24 – 36 €' },
@@ -174,6 +187,20 @@ const BOM_DATA = [
       { item: 'Bridas de nylon negras para sujetar tubo corrugado (corrugado + termorretráctil ya comprados)', qty: '1 lote', spec: 'Acabado', cost: '3 – 5 €' },
     ],
   },
+  {
+    group: '5. Nuevos elementos · Zona 230V / Cocina fija',
+    rows: [
+      { item: 'Inversor Onda Pura 2.000W (12V → 230V)', qty: '1 ud', spec: 'Nuevo', cost: 'Pendiente' },
+      { item: 'Portafusibles + Fusible ANL/MEGA 300A', qty: '1 kit', spec: 'Nuevo', cost: 'Pendiente' },
+      { item: 'Cable DC 70 mm² (o 2×35 mm² en paralelo) + ojales M8', qty: '2 líneas', spec: 'Nuevo', cost: 'Pendiente' },
+      { item: 'Cuadro 230V: Diferencial 40A/30mA + Magnetotérmico bipolar 16A', qty: '1 ud', spec: 'Nuevo', cost: 'Pendiente' },
+      { item: 'Manguera flexible 3×2,5 mm²', qty: 'Según trazado', spec: 'Nuevo', cost: 'Pendiente' },
+      { item: 'Base Schuko fija 230V', qty: '1 ud', spec: 'Nuevo', cost: 'Pendiente' },
+      { item: 'Cable tierra verde-amarillo 2,5–4 mm²', qty: 'Según trazado', spec: 'Nuevo', cost: 'Pendiente' },
+      { item: 'Placa de inducción empotrable fija 2 fuegos', qty: '1 ud', spec: 'Nuevo', cost: 'Pendiente' },
+      { item: 'Tubo corrugado para todo el cableado 12V y 230V', qty: 'Según trazado', spec: 'Nuevo', cost: 'Pendiente' },
+    ],
+  },
 ];
 
 function buildDiagram() {
@@ -181,20 +208,20 @@ function buildDiagram() {
   svg.innerHTML = '';
 
   // Fondo blanco limpio para exportación SVG/PNG
-  el('rect', { x: 0, y: 0, width: 2360, height: 1380, fill: '#f8fafc' }, svg);
+  el('rect', { x: 0, y: 0, width: DIAGRAM_WIDTH, height: DIAGRAM_HEIGHT, fill: '#f8fafc' }, svg);
 
   // Patrón sutil de rejilla técnica dentro del SVG
   const defs = el('defs', {}, svg);
   const pat = el('pattern', { id: 'tech-grid', width: 28, height: 28, patternUnits: 'userSpaceOnUse' }, defs);
   el('path', { d: 'M 28 0 L 0 0 0 28', fill: 'none', stroke: '#e2e8f0', 'stroke-width': 0.8 }, pat);
-  el('rect', { x: 0, y: 0, width: 2360, height: 1380, fill: 'url(#tech-grid)' }, svg);
+  el('rect', { x: 0, y: 0, width: DIAGRAM_WIDTH, height: DIAGRAM_HEIGHT, fill: 'url(#tech-grid)' }, svg);
 
   // Contenedor raíz transformable para Pan & Zoom
   const root = el('g', { id: 'viewport-root' }, svg);
 
   // Cabecera dentro del esquema
   const headerG = el('g', {}, root);
-  el('rect', { x: 24, y: 12, width: 2312, height: 52, rx: 12, fill: '#0f172a' }, headerG);
+  el('rect', { x: 24, y: 12, width: DIAGRAM_WIDTH - 48, height: 52, rx: 12, fill: '#0f172a' }, headerG);
   textEl('ESQUEMA ELÉCTRICO CAMPER 12V DC — GENERACIÓN, BUSBARS 300A Y DISTRIBUCIÓN', {
     x: 44,
     y: 44,
@@ -225,7 +252,7 @@ function buildDiagram() {
   textEl('Terminal Anilla (M8/M5/M4)', { x: legX + 748, y: 43, 'font-size': 12.5, 'font-weight': 700, fill: '#7dd3fc' }, headerG);
 
   // =========================================================================
-  // 3 ZONAS PRINCIPALES
+  // 4 ZONAS PRINCIPALES
   // =========================================================================
   const zonesLayer = el('g', { id: 'zones-layer' }, root);
   drawZone(zonesLayer, {
@@ -248,6 +275,13 @@ function buildDiagram() {
     color: '#1d4ed8',
     fill: 'rgba(239, 246, 255, 0.72)',
     border: '#60a5fa',
+  });
+  drawZone(zonesLayer, {
+    x: 2360, y: 92, w: 916, h: 1264,
+    title: 'ZONA 230V / COCINA FIJA',
+    color: '#7c3aed',
+    fill: 'rgba(245, 243, 255, 0.82)',
+    border: '#a78bfa',
   });
 
   const wiresLayer = el('g', { id: 'wires-layer' }, root);
@@ -517,14 +551,14 @@ function buildDiagram() {
   textEl('Todas las conexiones con Anilla M8', { x: 1130, y: 294, 'text-anchor': 'middle', 'font-size': 10, 'font-weight': 600, fill: '#7f1d1d' }, busPosG);
 
   // 2.2 Cadena Batería Auxiliar (+) -> Fusible Terminal MRBF 300A (directo M8) -> Cortacorrientes 300A -> Busbar (+)
-  // Cable 50 mm² desde salida M8 del MRBF hacia Cortacorrientes y Busbar (+)
+  // Cable 70 mm² (o 50 mm² si el tramo es menor de 1 m) desde salida M8 del MRBF hacia Cortacorrientes y Busbar (+)
   drawWire(wiresLayer, [[1130, 569], [1130, 346]], {
     polarity: 'pos',
-    gauge: '50 mm²',
+    gauge: '70 mm² (o 50 mm² <1 m) · M8',
     labelPos: [1130, 376],
     circuit: 'aux-battery',
   });
-  drawGaugePill(wiresLayer, 1130, 521, '50 mm²', 'pos');
+  drawGaugePill(wiresLayer, 1130, 521, '70 mm² · M8', 'pos');
 
   drawProtectionBox(compsLayer, {
     x: 1030, y: 406, w: 200, h: 68,
@@ -560,7 +594,7 @@ function buildDiagram() {
   // Cable Negativo Batería 50 mm² -> Busbar Negativo (-)
   drawWire(wiresLayer, [[1130, 827], [1130, 900]], {
     polarity: 'neg',
-    gauge: '50 mm²',
+    gauge: '70 mm² (o 50 mm² <1 m) · M8',
     labelPos: [1130, 864],
     circuit: 'aux-battery',
   });
@@ -1002,6 +1036,74 @@ function buildDiagram() {
   drawTerminal(compsLayer, 1855, 378, 'neg');
   drawTerminal(compsLayer, 1590, 514, 'pos');
   drawTerminal(compsLayer, 1440, 1248, 'neg');
+
+  // =========================================================================
+  // ZONA 4: 230V / COCINA FIJA
+  // =========================================================================
+  // Alimentación DC dedicada desde los Busbars existentes al inversor.
+  drawWire(wiresLayer, [[1270, 326], [2310, 326], [2310, 505], [2400, 505]], {
+    polarity: 'pos', gauge: '70 mm² · M8', labelPos: [2110, 336], circuit: 'inverter-dc',
+  });
+  drawProtectionBox(compsLayer, {
+    x: 2140, y: 326, w: 150, h: 68,
+    title: 'ANL / MEGA', amp: '300A', sub: 'Portafusibles DC', kind: 'fuse', circuit: 'inverter-dc',
+  });
+  drawWire(wiresLayer, [[1270, 1045], [2325, 1045], [2325, 575], [2400, 575]], {
+    polarity: 'neg', gauge: '70 mm² · M8', labelPos: [2110, 1104], circuit: 'inverter-dc',
+  });
+
+  const inverterCard = drawComponentCard(compsLayer, {
+    x: 2400, y: 410, w: 300, h: 250,
+    title: 'INVERSOR ONDA PURA', subtitle: '12V DC → 230V AC · 2.000W', subtitleY: 494,
+    accent: '#7c3aed', badges: ['Entrada M8 · 70 mm²', 'Salida 230V'], circuit: 'inverter-dc inverter-ac earth-230',
+  });
+  textEl('ENTRADA (+) 12V', { x: 2418, y: 535, 'font-size': 10.5, 'font-weight': 800, fill: '#b91c1c' }, inverterCard);
+  textEl('ENTRADA (-) 12V', { x: 2418, y: 575, 'font-size': 10.5, 'font-weight': 800, fill: '#0f172a' }, inverterCard);
+  textEl('SALIDA 230V AC', { x: 2680, y: 555, 'text-anchor': 'end', 'font-size': 10.5, 'font-weight': 800, fill: '#92400e' }, inverterCard);
+  textEl('PE carcasa', { x: 2550, y: 637, 'text-anchor': 'middle', 'font-size': 10, 'font-weight': 700, fill: '#15803d' }, inverterCard);
+
+  // Salida AC con fase, neutro y tierra REBT hacia el cuadro bipolar.
+  drawWire(wiresLayer, [[2700, 520], [2760, 520]], { polarity: 'phase', gauge: 'F 3×2,5 mm²', labelPos: [2730, 500], circuit: 'inverter-ac' });
+  drawWire(wiresLayer, [[2700, 575], [2760, 575]], { polarity: 'neutral', gauge: 'N 3×2,5 mm²', labelPos: [2730, 598], circuit: 'inverter-ac' });
+  drawWire(wiresLayer, [[2550, 660], [2550, 760], [2760, 760]], { polarity: 'earth', gauge: 'PE 2,5–4 mm²', labelPos: [2640, 784], circuit: 'earth-230' });
+
+  const acBox = el('g', { class: 'comp-item', 'data-circuit': 'inverter-ac earth-230' }, compsLayer);
+  el('rect', { x: 2760, y: 430, width: 250, height: 390, rx: 12, fill: '#ffffff', stroke: '#7c3aed', 'stroke-width': 2.2 }, acBox);
+  el('rect', { x: 2760, y: 430, width: 250, height: 38, rx: 10, fill: '#6d28d9' }, acBox);
+  textEl('CUADRO DE PROTECCIONES 230V', { x: 2885, y: 454, 'text-anchor': 'middle', 'font-size': 11, 'font-weight': 800, fill: '#ffffff' }, acBox);
+  textEl('Entrada bipolar F + N', { x: 2885, y: 490, 'text-anchor': 'middle', 'font-size': 10, 'font-weight': 700, fill: '#475569' }, acBox);
+  drawProtectionBox(compsLayer, { x: 2790, y: 505, w: 190, h: 88, title: 'Diferencial bipolar', amp: '40A / 30mA', kind: 'breaker', circuit: 'inverter-ac' });
+  drawProtectionBox(compsLayer, { x: 2790, y: 625, w: 190, h: 88, title: 'Magnetotérmico bipolar', amp: '16A · 2P', kind: 'breaker', circuit: 'inverter-ac' });
+  textEl('PE directo a borna de tierra', { x: 2885, y: 785, 'text-anchor': 'middle', 'font-size': 10, 'font-weight': 700, fill: '#15803d' }, acBox);
+
+  // Manguera 3x2,5 mm² hasta la toma fija y la placa empotrable.
+  drawWire(wiresLayer, [[3010, 670], [3070, 670]], { polarity: 'phase', gauge: 'F marrón/negro', labelPos: [3040, 650], circuit: 'kitchen-ac' });
+  drawWire(wiresLayer, [[3010, 700], [3070, 700]], { polarity: 'neutral', gauge: 'N azul claro', labelPos: [3040, 724], circuit: 'kitchen-ac' });
+  drawWire(wiresLayer, [[2885, 820], [2885, 900], [3070, 900]], { polarity: 'earth', gauge: 'PE verde-amarillo', labelPos: [2980, 924], circuit: 'earth-230 kitchen-ac' });
+  const schuko = el('g', { class: 'comp-item', 'data-circuit': 'kitchen-ac earth-230' }, compsLayer);
+  el('rect', { x: 3070, y: 610, width: 170, height: 150, rx: 10, fill: '#ffffff', stroke: '#92400e', 'stroke-width': 2 }, schuko);
+  textEl('BASE SCHUKO FIJA', { x: 3155, y: 640, 'text-anchor': 'middle', 'font-size': 11, 'font-weight': 800, fill: '#78350f' }, schuko);
+  el('circle', { cx: 3130, cy: 690, r: 12, fill: '#fef3c7', stroke: '#92400e', 'stroke-width': 2 }, schuko);
+  el('circle', { cx: 3180, cy: 690, r: 12, fill: '#fef3c7', stroke: '#92400e', 'stroke-width': 2 }, schuko);
+  textEl('230V · F/N/PE', { x: 3155, y: 730, 'text-anchor': 'middle', 'font-size': 10, 'font-weight': 700, fill: '#475569' }, schuko);
+  const hob = drawComponentCard(compsLayer, {
+    x: 3070, y: 970, w: 170, h: 190, title: 'PLACA INDUCCIÓN', subtitle: 'Fija · empotrable', subtitleY: 1035,
+    accent: '#92400e', badges: ['2 fuegos', 'Horizontal'], circuit: 'kitchen-ac',
+  });
+  el('ellipse', { cx: 3118, cy: 1090, rx: 25, ry: 18, fill: '#fef3c7', stroke: '#92400e', 'stroke-width': 2 }, hob);
+  el('ellipse', { cx: 3190, cy: 1090, rx: 25, ry: 18, fill: '#fef3c7', stroke: '#92400e', 'stroke-width': 2 }, hob);
+  textEl('Montaje horizontal', { x: 3155, y: 1135, 'text-anchor': 'middle', 'font-size': 10, 'font-weight': 700, fill: '#78350f' }, hob);
+
+  // Tierra 230V separada visualmente de la masa DC del Busbar (-).
+  drawWire(wiresLayer, [[3155, 900], [3155, 1210]], { polarity: 'earth', gauge: '2,5–4 mm²', labelPos: [3200, 1195], circuit: 'earth-230' });
+  drawGroundSymbol(compsLayer, 3155, 1210, 'Tierra Chasis', 'Tornillo independiente · separar de Busbar (-)', 'earth-230');
+  const acLegend = el('g', { class: 'comp-item', 'data-circuit': 'inverter-ac earth-230' }, compsLayer);
+  el('rect', { x: 2390, y: 1160, width: 610, height: 92, rx: 10, fill: '#f5f3ff', stroke: '#a78bfa', 'stroke-width': 1.5 }, acLegend);
+  textEl('LEYENDA 230V REBT', { x: 2420, y: 1185, 'font-size': 11, 'font-weight': 800, fill: '#5b21b6' }, acLegend);
+  textEl('Fase: marrón/negro', { x: 2420, y: 1210, 'font-size': 10, 'font-weight': 700, fill: '#92400e' }, acLegend);
+  textEl('Neutro: azul claro', { x: 2580, y: 1210, 'font-size': 10, 'font-weight': 700, fill: '#0284c7' }, acLegend);
+  textEl('Tierra: verde-amarillo', { x: 2730, y: 1210, 'font-size': 10, 'font-weight': 700, fill: '#15803d' }, acLegend);
+  textEl('Todo el cableado (12V y 230V) debe ir dentro de tubo corrugado y con terminales crimpados.', { x: 2420, y: 1235, 'font-size': 10.2, 'font-weight': 800, fill: '#334155' }, acLegend);
 }
 
 // ===========================================================================
@@ -1021,6 +1123,9 @@ function initInteractions(initialScheme = 'electric') {
   const chip1 = document.getElementById('legend-chip-1');
   const chip2 = document.getElementById('legend-chip-2');
   const chip3 = document.getElementById('legend-chip-3');
+  const chip4 = document.getElementById('legend-chip-4');
+  const chip5 = document.getElementById('legend-chip-5');
+  const chip6 = document.getElementById('legend-chip-6');
 
   const SCHEME_CONFIG = {
     electric: {
@@ -1037,6 +1142,9 @@ function initInteractions(initialScheme = 'electric') {
         '<span class="swatch pos"></span> Positivo (+)',
         '<span class="swatch neg"></span> Negativo (-) / Masa',
         '<span class="ring-swatch"></span> Terminal de Anilla',
+        '<span class="swatch phase"></span> Fase 230V (marrón/negro)',
+        '<span class="swatch neutral"></span> Neutro 230V (azul claro)',
+        '<span class="swatch earth"></span> Tierra 230V (verde-amarillo)',
       ],
       summaryTitle: 'Resumen de Protecciones y Secciones',
       summaryTabLabel: 'Tramos y Fusibles',
@@ -1071,6 +1179,7 @@ function initInteractions(initialScheme = 'electric') {
         '<span class="swatch" style="background:#0284c7;"></span> Limpia / Fría (10 / 40 mm)',
         '<span class="swatch pos"></span> Caliente ACS (10 mm)',
         '<span class="swatch" style="background:#475569;"></span> Grises (Ø25 mm)',
+        '', '', '',
       ],
       summaryTitle: 'Orden de Montaje, Diámetros y Racores',
       summaryTabLabel: 'Tramos y Pasos',
@@ -1119,7 +1228,7 @@ function initInteractions(initialScheme = 'electric') {
   viewport.addEventListener('wheel', (e) => {
     e.preventDefault();
     const rect = svg.getBoundingClientRect();
-    const viewBoxW = 2360;
+    const viewBoxW = DIAGRAM_WIDTH;
     const viewBoxH = 1380;
     const scaleFit = Math.min(rect.width / viewBoxW, rect.height / viewBoxH);
     const offsetX = (rect.width - viewBoxW * scaleFit) / 2;
@@ -1150,7 +1259,7 @@ function initInteractions(initialScheme = 'electric') {
   window.addEventListener('mousemove', (e) => {
     if (!isPanning) return;
     const rect = svg.getBoundingClientRect();
-    const scaleFit = Math.min(rect.width / 2360, rect.height / 1380);
+    const scaleFit = Math.min(rect.width / DIAGRAM_WIDTH, rect.height / DIAGRAM_HEIGHT);
     const dx = (e.clientX - startX) / scaleFit;
     const dy = (e.clientY - startY) / scaleFit;
     startX = e.clientX;
@@ -1342,6 +1451,9 @@ function initInteractions(initialScheme = 'electric') {
     chip1.innerHTML = cfg.chips[0];
     chip2.innerHTML = cfg.chips[1];
     chip3.innerHTML = cfg.chips[2];
+    chip4.innerHTML = cfg.chips[3] || '';
+    chip5.innerHTML = cfg.chips[4] || '';
+    chip6.innerHTML = cfg.chips[5] || '';
 
     selectCircuit(null);
     cfg.buildFn();
@@ -1396,8 +1508,8 @@ function initInteractions(initialScheme = 'electric') {
     clone.querySelectorAll('.highlighted').forEach((n) => n.classList.remove('highlighted'));
     const cloneRoot = clone.getElementById('viewport-root');
     if (cloneRoot) cloneRoot.removeAttribute('transform');
-    clone.setAttribute('width', '2360');
-    clone.setAttribute('height', '1380');
+    clone.setAttribute('width', String(DIAGRAM_WIDTH));
+    clone.setAttribute('height', String(DIAGRAM_HEIGHT));
     return new XMLSerializer().serializeToString(clone);
   }
 
@@ -1420,8 +1532,8 @@ function initInteractions(initialScheme = 'electric') {
     img.onload = () => {
       const scaleExport = 2; // 4720 x 2760 px HD
       const canvas = document.createElement('canvas');
-      canvas.width = 2360 * scaleExport;
-      canvas.height = 1380 * scaleExport;
+      canvas.width = DIAGRAM_WIDTH * scaleExport;
+      canvas.height = DIAGRAM_HEIGHT * scaleExport;
       const ctx = canvas.getContext('2d');
       ctx.fillStyle = '#f8fafc';
       ctx.fillRect(0, 0, canvas.width, canvas.height);

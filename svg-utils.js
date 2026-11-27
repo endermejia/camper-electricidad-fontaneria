@@ -7,6 +7,9 @@ const SVG_NS = 'http://www.w3.org/2000/svg';
 const WIRE_STYLES = {
   pos:   { cls: 'wire-pos',   stroke: '#dc2626', pillBg: '#fef2f2', pillBorder: '#dc2626', pillText: '#991b1b' },
   neg:   { cls: 'wire-neg',   stroke: '#111827', pillBg: '#f1f5f9', pillBorder: '#334155', pillText: '#0f172a' },
+  phase: { cls: 'wire-phase', stroke: '#92400e', pillBg: '#fef3c7', pillBorder: '#b45309', pillText: '#78350f' },
+  neutral: { cls: 'wire-neutral', stroke: '#38bdf8', pillBg: '#e0f2fe', pillBorder: '#0284c7', pillText: '#075985' },
+  earth: { cls: 'wire-earth', stroke: '#15803d', pillBg: '#dcfce7', pillBorder: '#16a34a', pillText: '#166534', dashed: '7,4' },
   clean: { cls: 'wire-clean', stroke: '#0284c7', pillBg: '#e0f2fe', pillBorder: '#0284c7', pillText: '#075985' },
   hot:   { cls: 'wire-hot',   stroke: '#dc2626', pillBg: '#fef2f2', pillBorder: '#dc2626', pillText: '#991b1b' },
   grey:  { cls: 'wire-grey',  stroke: '#475569', pillBg: '#f1f5f9', pillBorder: '#475569', pillText: '#1e293b' },
